@@ -22,7 +22,7 @@ plt.scatter(X, y,  color='blue')
 plt.xlabel("Cyanide Concentration")
 plt.ylabel("Mean Pixel Intensity")
 plt.title("Red")
-plt.show()
+# plt.show()
 
 msk = np.random.rand(len(colorData)) < 0.8
 train = colorData[msk]
