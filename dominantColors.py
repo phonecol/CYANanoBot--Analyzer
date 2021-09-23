@@ -250,6 +250,7 @@ class DominantColors:
             # plt.hist(gray.ravel(),256,[0,256]); plt.show()
 
             # return img_MEAN_Lab, img_STD_Lab
+        
 
         return img_MEAN_RGB, img_STD_RGB, img_MEAN_HSV, img_STD_HSV, img_MEAN_Lab, img_STD_Lab,img_MEAN_gray, img_STD_gray
 

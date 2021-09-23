@@ -45,11 +45,11 @@ def get_circles(images,image_number, ppm_values):
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
-        scale_percent = 100 # percent of original size
-        width = int(img.shape[1] * scale_percent / 100)
-        height = int(img.shape[0] * scale_percent / 100)
-        dim = (width, height)
-        img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+        # scale_percent = 100 # percent of original size
+        # width = int(img.shape[1] * scale_percent / 100)
+        # height = int(img.shape[0] * scale_percent / 100)
+        # dim = (width, height)
+        # img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
         # load the image
         # img = cv2.imread(sys.argv[1])
         # convert BGR to RGB to be suitable for showing using matplotlib library
@@ -116,22 +116,27 @@ def get_circles(images,image_number, ppm_values):
             print(co)
             # print(i[0])
             # print(i[1])
-            # print(i[2])
+            print(i[2])
             
             # cv2.putText(masked,str(co),(int(i[0]+60),int(i[1])+60),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
             cv2.circle(masked,(int(i[0]),int(i[1])),int(i[2]),(0,255,0),2)
             
             radius = int(math.ceil(i[2]))
+            radius = 40
             origin_x = int(math.ceil(i[0]) - radius)
             origin_y = int(math.ceil(i[1]) - radius)
             
 
             cv2.rectangle(cimg,(origin_x-10,origin_y-10),(origin_x+2*radius+10,origin_y+2*radius+10),(200,0,0),2)
 
+            #cropped the region of interest, roi is the circle, roi2 is a square within the paper sensor
             roi=masked[origin_y:origin_y+2*radius,origin_x:origin_x+2*radius]
             roi2=masked[origin_y+20:origin_y+2*radius-20,origin_x+20:origin_x+2*radius-20]
+
+            #roi path
             roi_path = "ROI\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
             print('roi_path',roi_path)
+            
             cv2.imwrite(roi_path, roi)
             cv2.imwrite("ROI2\\"+image_number+'\\'+str(co)+','+str(ppm_values[j])+ '.jpg', roi2)
             cv2.waitKey(0)
@@ -139,10 +144,7 @@ def get_circles(images,image_number, ppm_values):
             # roi=cimg[y:y+h,x:x+w]
         # print the number of circles detected
         print("Number of circles detected:", co)
-        # save the image, convert to BGR to save with proper colors
-        # cv2.imwrite("coins_circles_detected.png", cimg)
-        # show the image
-        # plt.imshow(masked)
+
         #plt.show()
 
 
