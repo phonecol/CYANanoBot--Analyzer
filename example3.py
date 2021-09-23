@@ -11,7 +11,7 @@ import time
 
 
 
-IMAGE_DIRECTORY = 'ROI/000' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+IMAGE_DIRECTORY = 'ROI2/02' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
 #000 first image without water
 #00 first image with water
 #01 2nd image with water after 30sec
@@ -45,7 +45,7 @@ def get_images_from_a_folder(path):
         print(file)
         image = get_image(os.path.join(IMAGE_DIRECTORY, file))
 
-        images.append(image)
+        
         ppm_value1, image_type = file.split('.')
         print(ppm_value1)
         coord, cn_Concentration = ppm_value1.split(',')
@@ -55,9 +55,7 @@ def get_images_from_a_folder(path):
         # print(cn_Concentration)
 
 
-        cv2.putText(image, "{}".format(cn_Concentration), (5,5),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.2, (0,255,0), 1)
-        
+        images.append(image)
         ppm_values.append(cn_Concentration)
         combined.append((image, cn_Concentration))
         cn_Concentrations.append(cn_Concentration)
@@ -74,17 +72,17 @@ def get_images_from_a_folder(path):
 
 
 def save_data(data):
-    print("data",data)
+    # print("data",data)
     data = data.T ##transpose the data array##
-    print("data",data)
+    # print("data",data)
     sorted_data = natsorted(data,key=itemgetter(0))##sort the data by their coordinates##
-    print("data",sorted_data)
+    # print("data",sorted_data)
     header = 'Cyanide Concentration,R,G,B,R_std,G_std,B_std,H,S,V,H_std,S_std,V_std,L,a,b,L_std,a_std,b_std,Gray,Gray_std,RGB-KMEANS' #initialize the header for the csv file
     filename_Data ="ColorData/"+image_number+ "_ColorData_" + timestr+".csv" ##initialize the filename of the data
     filename_Sorted_Data ="ColorData/"+image_number+ "_ColorSortedData_" + timestr+".csv"  ##initialize the filename of the sorted data
     data = np.array(data)## convert the data and sorted data into numpy arrays
     sorted_data = np.array(sorted_data)## convert the data and sorted data into numpy arrays
-    print(sorted_data)
+    # print(sorted_data)
     np.savetxt(filename_Data, data, delimiter=",",header= header,fmt='%s') #save the data array in a csv filetype with a filename of "data.csv" with the following header defined above
     np.savetxt(filename_Sorted_Data, sorted_data, delimiter=",",header= header,fmt='%s') #save the data array in a csv filetype with a filename of "data.csv" with the following header defined above
 
@@ -93,7 +91,7 @@ def save_data(data):
 
 
 #for KMeans Algorithm
-clusters = 1 #number of clusters of colors. Value is at the range of (2-5)
+clusters = 3 #number of clusters of colors. Value is at the range of (2-5)
 index = 1
 
 coords = []
@@ -114,26 +112,28 @@ _,image_number = IMAGE_DIRECTORY.split('/')
 images , ppm_values, cn_Concentrations, coords = get_images_from_a_folder(IMAGE_DIRECTORY)
 
 timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
-print(timestr)
+# print(timestr)
 
 
 
-print(len(images))
+# print(len(images))
 
 for i in range(len(images)):
 
     dc = DominantColors(images[i],images,clusters) #initialize the DominantColors class
     dc.saveHistogram("Histograms/{}Histogram".format(i), False)
 
-    colors = dc.dominantColors()  #call the dominantColors function to get the dominant colors of the image using KMeans Algorithm
-    print("Dominant Colors: ",colors)
-    print("Dominant Colors sorted: ",colors)
+    rgb_kmeans = dc.dominantColors()  #call the dominantColors function to get the dominant colors of the image using KMeans Algorithm
+    rgb_kmeans = rgb_kmeans.flatten()
+    print("Dominant Colors: ",rgb_kmeans)
+    print("Dominant Colors sorted: ",rgb_kmeans)
     hsv,lab,gray = dc.cvtColorSpace()
-    # dc.plotHistogram()
+    # dc.plotHistogram()s
+    # dc.colorPixels()
     rgb_mean,rgb_std,hsv_mean,hsv_std,lab_mean,lab_std, gray_mean, gray_std = dc.getMeanIntensity()  #call the getMeanIntensity function to get the average RGB pixel intensity and its standard deviation of the paper sensor
 
     #append the RGB, HSV,Lab, Gray Values into a list
-    RGB_KMeans.append(colors)
+    RGB_KMeans.append(rgb_kmeans)
     RGB_Means.append(rgb_mean)
     RGB_stds.append(rgb_std)
     HSV_Means.append(hsv_mean)
@@ -142,7 +142,7 @@ for i in range(len(images)):
     Lab_stds.append(lab_std)
     Gray_Means.append(gray_mean)
     Gray_stds.append(gray_std)
-    colorspaces.append((colors, rgb_mean, rgb_std, hsv_mean, hsv_std, lab_mean, lab_std,gray_mean,gray_std))
+    colorspaces.append((rgb_kmeans, rgb_mean, rgb_std, hsv_mean, hsv_std, lab_mean, lab_std,gray_mean,gray_std))
 
 # dc.plotMultipleHistogram(0)
 # dc.plotMultipleHistogram(1)
@@ -160,9 +160,9 @@ Lab_stds = np.array(Lab_stds)
 Gray_Means = np.array(Gray_Means)
 Gray_stds = np.array(Gray_stds)
 colorspaces= np.array(colorspaces)
-print('Colorspaces',colorspaces)
+# print('Colorspaces',colorspaces)
 print("RGB KMEANS: ",RGB_KMeans)
-print("RGB MEANS: ",RGB_Means)
+# print("RGB MEANS: ",RGB_Means)
 # print("RGB STDS: ",RGB_stds)
 # print("HSV MEANS: ",HSV_Means)
 # print("HSV STDS: ",HSV_stds)
@@ -176,7 +176,7 @@ print("RGB MEANS: ",RGB_Means)
 # HSV_Means[:,1:] = np.round(HSV_Means[:,1:]/255,8)
 # HSV_stds[:,0] = HSV_stds[:,0]/180*360
 # HSV_stds[:,1:] = np.round(HSV_stds[:,1:]/255,8)
-RGB_KMeans = np.squeeze(RGB_KMeans[:][:,0:2])
+# RGB_KMeans = np.squeeze(RGB_KMeans[:][0,0:3])
 red = RGB_Means[:,0]
 green = RGB_Means[:,1]
 blue = RGB_Means[:,2]
@@ -356,8 +356,8 @@ labels = ppm_values_str
 x = np.arange(len(labels))  # the label locations
 width = 0.2  # the width of the bars
 x =x+1
-print('x',x)
-print(labels)
+# print('x',x)
+# print(labels)
 # fig, ax1 = plt.subplots()
 rects1 = ax2.bar(x + width/2,RGB_Means[:,0],width, label='Red',color='r')
 rects2 = ax2.bar(x + 1.5*width, RGB_Means[:,1], width, label='Green',color='g')

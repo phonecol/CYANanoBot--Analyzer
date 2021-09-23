@@ -118,7 +118,7 @@ def get_circles(images,image_number, ppm_values):
             # print(i[1])
             # print(i[2])
             
-            cv2.putText(masked,str(co),(int(i[0]+60),int(i[1])+60),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
+            # cv2.putText(masked,str(co),(int(i[0]+60),int(i[1])+60),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
             cv2.circle(masked,(int(i[0]),int(i[1])),int(i[2]),(0,255,0),2)
             
             radius = int(math.ceil(i[2]))
