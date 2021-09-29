@@ -109,11 +109,12 @@ def get_images_from_a_folder(path):
     return images,hsv_images,gray_images, ppm_values
 
 
-ppm_concentration_str = ["WFP-AuNP",  "Deionised Water", "0.01 ppm", "0.1 ppm" , "0.5 ppm", "1 ppm", "5 ppm", "10 ppm", "20 ppm", "30 ppm"]
-ppm_concentration_int = [-1,0,0.01, 0.1,0.5,1,5,10,20,30]
+# ppm_concentration_str = ["WFP-AuNP",  "Deionised Water", "0.01 ppm", "0.1 ppm" , "0.5 ppm", "1 ppm", "5 ppm", "10 ppm", "20 ppm", "30 ppm"]
+# ppm_concentration_int = [-1,0,0.01, 0.1,0.5,1,5,10,20,30]
 
 min = str(10)
 IMAGE_DIRECTORY = 'ROI'+min+'min'
+IMAGE_DIRECTORY = 'ROI2/01'
 images ,hsvs,gray, ppm_values = get_images_from_a_folder(IMAGE_DIRECTORY)
 
 bgr_Means = []
@@ -158,28 +159,28 @@ hsv_Means = np.array(hsv_Means)
 print(bgr_Means)
 print(hsv_Means)
 print(ppm_values)
-fig1, (ax1, ax2) = plt.subplots(2, 1)
+# fig1, (ax1, ax2) = plt.subplots(2, 1)
 
-#plot the RGB_Mean Intensity of the paper sensor that was taken
+# #plot the RGB_Mean Intensity of the paper sensor that was taken
 
-ax1.set_title('BLUE, GREEN AND RED INTENSITY at '+ min + ' minutes Detection Time')
-ax1.plot(ppm_concentration_str,bgr_Means[:,0],color='blue', marker='o', linestyle='dashed', label='Blue')
-ax1.plot(ppm_concentration_str,bgr_Means[:,1],color='green', marker='o', linestyle='dashed', label='Green')
-ax1.plot(ppm_concentration_str,bgr_Means[:,2],color='red', marker='o', linestyle='dashed', label='Red')
-ax1.set_ylabel('Mean Pixel Intensity')
-ax1.set_xlabel('Cyanide Concentration (PPM)')
-ax1.legend()
+# ax1.set_title('BLUE, GREEN AND RED INTENSITY at '+ min + ' minutes Detection Time')
+# ax1.plot(ppm_concentration_str,bgr_Means[:,0],color='blue', marker='o', linestyle='dashed', label='Blue')
+# ax1.plot(ppm_concentration_str,bgr_Means[:,1],color='green', marker='o', linestyle='dashed', label='Green')
+# ax1.plot(ppm_concentration_str,bgr_Means[:,2],color='red', marker='o', linestyle='dashed', label='Red')
+# ax1.set_ylabel('Mean Pixel Intensity')
+# ax1.set_xlabel('Cyanide Concentration (PPM)')
+# ax1.legend()
 
-ax2.set_title('HUE, SATURATION, AND VALUE at  '+ min + '  minutes Detection Time')
+# ax2.set_title('HUE, SATURATION, AND VALUE at  '+ min + '  minutes Detection Time')
 
-ax2.plot(ppm_concentration_str,hsv_Means[:,0],color='blue', marker='o', linestyle='dashed', label='Hue')
-ax2.plot(ppm_concentration_str,hsv_Means[:,1],color='green', marker='o', linestyle='dashed', label='Saturation')
-ax2.plot(ppm_concentration_str,hsv_Means[:,2],color='red', marker='o', linestyle='dashed', label='Value')
-ax2.set_ylabel('Mean Pixel Intensity')
+# ax2.plot(ppm_concentration_str,hsv_Means[:,0],color='blue', marker='o', linestyle='dashed', label='Hue')
+# ax2.plot(ppm_concentration_str,hsv_Means[:,1],color='green', marker='o', linestyle='dashed', label='Saturation')
+# ax2.plot(ppm_concentration_str,hsv_Means[:,2],color='red', marker='o', linestyle='dashed', label='Value')
+# ax2.set_ylabel('Mean Pixel Intensity')
 
-ax2.set_xlabel('Cyanide Concentration (PPM)')
-ax2.legend()
+# ax2.set_xlabel('Cyanide Concentration (PPM)')
+# ax2.legend()
 
-for i, txt in enumerate(hsv_Means[:,0].astype(int)):
-    ax2.annotate(txt, (ppm_values[i], hsv_Means[i,0]))
-plt.show()
+# for i, txt in enumerate(hsv_Means[:,0].astype(int)):
+#     ax2.annotate(txt, (ppm_values[i], hsv_Means[i,0]))
+# plt.show()

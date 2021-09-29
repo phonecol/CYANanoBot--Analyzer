@@ -13,11 +13,14 @@ import math
 
 #load image
 
+IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
 # IMAGE_DIRECTORY = os.path.join('captured_images1', 'optimizationA')
-IMAGE_DIRECTORY = 'captured_images1/optimizationA'
+IMAGE_DIRECTORY = IMAGE_PATH+'captured_images2/optimizationA'
+
+#  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
 #initialize the list of images, and its filenames
-image_no = '02'
+image_no = '29'
 images = []
 ppm_values = []
 subfolders = []
@@ -65,11 +68,11 @@ def get_circles(images,image_number, ppm_values):
             image=img,
             method=cv2.HOUGH_GRADIENT, 
             dp=1,
-            minDist=300, 
+            minDist=500, 
             param1=40, 
             param2=23,
-            minRadius=40, 
-            maxRadius=60
+            minRadius=65, #the minimum radius of the paper sensor is 40 pixel
+            maxRadius=78  #the maximum radius of the paper sensor is 60 pixel
         )
         # print(circles)
         # print("asd")
@@ -102,9 +105,7 @@ def get_circles(images,image_number, ppm_values):
         # cv2.imshow('mask',mask)
         # cv2.waitKey(0)
 
-        # plt.imshow(mask, cmap="brg")
-        # plt.show()
-
+       
         #add the mask and the image
         masked =  cv2.bitwise_and(cimg,cimg, mask=mask)
 
@@ -118,11 +119,11 @@ def get_circles(images,image_number, ppm_values):
             # print(i[1])
             print(i[2])
             
-            # cv2.putText(masked,str(co),(int(i[0]+60),int(i[1])+60),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
-            cv2.circle(masked,(int(i[0]),int(i[1])),int(i[2]),(0,255,0),2)
+            cv2.putText(masked,str(co),(int(i[0]+70),int(i[1])+70),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
+            # cv2.circle(masked,(int(i[0]),int(i[1])),int(i[2]),(0,255,0),2)
             
             radius = int(math.ceil(i[2]))
-            radius = 40
+            radius = 75
             origin_x = int(math.ceil(i[0]) - radius)
             origin_y = int(math.ceil(i[1]) - radius)
             
@@ -131,21 +132,27 @@ def get_circles(images,image_number, ppm_values):
 
             #cropped the region of interest, roi is the circle, roi2 is a square within the paper sensor
             roi=masked[origin_y:origin_y+2*radius,origin_x:origin_x+2*radius]
-            roi2=masked[origin_y+20:origin_y+2*radius-20,origin_x+20:origin_x+2*radius-20]
+            roi2=masked[origin_y+30:origin_y+2*radius-30,origin_x+30:origin_x+2*radius-30]
 
             #roi path
-            roi_path = "ROI\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
+            roi_path = IMAGE_PATH+ "ROI\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            roi2_path = IMAGE_PATH+ "ROI2\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
             print('roi_path',roi_path)
             
             cv2.imwrite(roi_path, roi)
-            cv2.imwrite("ROI2\\"+image_number+'\\'+str(co)+','+str(ppm_values[j])+ '.jpg', roi2)
+            cv2.imwrite(roi2_path,roi2)
+
+            # cv2.imwrite("ROI2\\"+image_number+'\\'+str(co)+','+str(ppm_values[j])+ '.jpg', roi2)
             cv2.waitKey(0)
 
             # roi=cimg[y:y+h,x:x+w]
         # print the number of circles detected
         print("Number of circles detected:", co)
 
-        #plt.show()
+        plt.imshow(masked)
+        plt.show()
+        # #plt.show()
 
 
 

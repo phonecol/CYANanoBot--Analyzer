@@ -12,7 +12,7 @@ import time
 
 
 
-IMAGE_DIRECTORY = 'ROI2/02' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+IMAGE_DIRECTORY = 'ROI2/03' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
 #000 first image without water
 #00 first image with water
 #01 2nd image with water after 30sec
@@ -204,7 +204,7 @@ timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
 for i in range(len(images)):
 
     dc = DominantColors(images[i],images,clusters) #initialize the DominantColors class
-    dc.saveHistogram("Histograms/{}Histogram".format(i), False)
+    dc.saveHistogram("Histograms/{}Histogram".format(i), False) #set to false para dili i show ang histogram plot
 
     rgb_kmeans = dc.dominantColors()  #call the dominantColors function to get the dominant colors of the image using KMeans Algorithm
     rgb_kmeans = rgb_kmeans.flatten()
@@ -278,8 +278,8 @@ data = np.vstack((cn_Concentrations,coords,RGB_Means_str,RGB_stds_str,HSV_Means_
 data2 = np.vstack((cn_Concentrations,coords, COLORSPACES_str))
 #save the data into a csv file.
 data, sorted_data = save_data(data, image_number, timestr, "1")
-data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
-# plotRGB(sorted_data, ppm_values_str)
+# data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
+plotRGB(sorted_data, ppm_values_str)
 
 print(colorspaces)
 print("lezgo")
