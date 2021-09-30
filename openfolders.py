@@ -15,7 +15,7 @@ import math
 
 IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
 # IMAGE_DIRECTORY = os.path.join('captured_images1', 'optimizationA')
-IMAGE_DIRECTORY = IMAGE_PATH+'captured_images2/optimizationA'
+IMAGE_DIRECTORY = IMAGE_PATH+'captured_images3/optimizationA'
 
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
@@ -104,7 +104,9 @@ def get_circles(images,image_number, ppm_values):
 
         # cv2.imshow('mask',mask)
         # cv2.waitKey(0)
-
+        
+        # plt.imshow(mask,"bgr")
+        # plt.show()
        
         #add the mask and the image
         masked =  cv2.bitwise_and(cimg,cimg, mask=mask)
@@ -136,8 +138,8 @@ def get_circles(images,image_number, ppm_values):
 
             #roi path
             IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
-            roi_path = IMAGE_PATH+ "ROI\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
-            roi2_path = IMAGE_PATH+ "ROI2\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            roi_path = IMAGE_PATH+ "ROI_1\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            roi2_path = IMAGE_PATH+ "ROI_2\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
             print('roi_path',roi_path)
             
             cv2.imwrite(roi_path, roi)

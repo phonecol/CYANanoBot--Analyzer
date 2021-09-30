@@ -12,7 +12,9 @@ import time
 
 
 
-IMAGE_DIRECTORY = 'ROI2/03' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+# IMAGE_DIRECTORY = 'ROI2/03' #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+IMAGE_DIRECTORY = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\ROI_2/10" #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+
 #000 first image without water
 #00 first image with water
 #01 2nd image with water after 30sec
@@ -44,7 +46,8 @@ def get_images_from_a_folder(path):
     #a loop for getting the images in the folder and append them into a list
     for file in files:
         image = get_image(os.path.join(IMAGE_DIRECTORY, file))
-        ppm_value1, image_type = file.split('.')#split the filename to remove the image type
+        # ppm_value1, image_type = file.split('.')#split the filename to remove the image type
+        ppm_value1 = file[:-4]
         coord, cn_Concentration = ppm_value1.split(',')#split the coordinate of the paper sensor in the spotplate and the cyanide concentration
         cn_Concentration = cn_Concentration[:-3]
 
@@ -88,9 +91,9 @@ def plotRGB(sorted_data, ppm_values_str):
     fig1, (ax1, ax2) = plt.subplots(2, 1)
 
     #plot the RGB_Mean Intensity of the paper sensor that was taken
-    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,1].astype(float),color='red', marker='o', linestyle='dashed')
-    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,2].astype(float),color='green', marker='o', linestyle='dashed')
-    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,3].astype(float),color='blue', marker='o', linestyle='dashed')
+    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,2].astype(float),color='red', marker='o', linestyle='dashed')
+    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,3].astype(float),color='green', marker='o', linestyle='dashed')
+    ax1.plot(sorted_data[:,0].astype(float),sorted_data[:,4].astype(float),color='blue', marker='o', linestyle='dashed')
     ax1.set_ylabel('Mean Pixel Intensity')
     ax1.set_xlabel('Cyanide Concentration')
     ax1.set_title("Mean Pixel Intensity of Au-NP's in RGB Colorspace")
@@ -127,9 +130,9 @@ def plotRGB(sorted_data, ppm_values_str):
 
 
     fig2, (ax21, ax22) = plt.subplots(2, 1)
-    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,7].astype(float),color='red', marker='o', linestyle='dashed', label='Hue')
-    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,8].astype(float),color='green', marker='o', linestyle='dashed', label='Saturation')
-    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,9].astype(float),color='blue', marker='o', linestyle='dashed', label='Value')
+    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,8].astype(float),color='red', marker='o', linestyle='dashed', label='Hue')
+    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,9].astype(float),color='green', marker='o', linestyle='dashed', label='Saturation')
+    ax21.plot(sorted_data[:,0].astype(float),sorted_data[:,10].astype(float),color='blue', marker='o', linestyle='dashed', label='Value')
     ax21.set_ylabel('Mean Pixel Intensity')
     ax21.set_xlabel('Cyanide Concentration(PPM)')
     ax21.set_title("Mean Pixel Intensity of Au-NP's in HSV Colorspace")
@@ -138,9 +141,9 @@ def plotRGB(sorted_data, ppm_values_str):
 
 
     fig3, (ax31, ax32) = plt.subplots(2, 1)
-    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,13].astype(float),color='red', marker='o', linestyle='dashed', label='L')
-    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,14].astype(float),color='green', marker='o', linestyle='dashed', label='a')
-    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,15].astype(float),color='blue', marker='o', linestyle='dashed', label='b')
+    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,14].astype(float),color='red', marker='o', linestyle='dashed', label='L')
+    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,15].astype(float),color='green', marker='o', linestyle='dashed', label='a')
+    ax31.plot(sorted_data[:,0].astype(float),sorted_data[:,16].astype(float),color='blue', marker='o', linestyle='dashed', label='b')
     ax31.set_ylabel('Mean Pixel Intensity')
     ax31.set_xlabel('Cyanide Concentration(PPM)')
     ax31.set_title("Mean Pixel Intensity of Au-NP's in LAB Colorspace")
@@ -163,7 +166,7 @@ def plotRGB(sorted_data, ppm_values_str):
     # plt.scatter(ppm_values, HSV_Means[:,0], s=area, c=scatter_hsv, alpha=0.5)
     # plt.show()
     fig4, (ax41, ax42) = plt.subplots(2, 1)
-    ax41.plot(sorted_data[:,0].astype(float),sorted_data[:,19].astype(float),color='red', marker='o', linestyle='dashed', label='Gray')
+    ax41.plot(sorted_data[:,0].astype(float),sorted_data[:,20].astype(float),color='red', marker='o', linestyle='dashed', label='Gray')
     ax41.set_ylabel('Mean Pixel Intensity')
     ax41.set_xlabel('CYANIDE Concentration (PPM)')
     ax41.set_title("Mean Pixel Intensity of Au-NP's in Gray Colorspace")
@@ -260,7 +263,7 @@ print("RGB KMEANS: ",RGB_KMeans)
 print("RGBKMEANS",RGB_KMeans)
 print("HSV MEANS: ",HSV_Means)
 ##convert the data type into a string##
-ppm_values_str = ppm_values.astype(str).T
+# ppm_values_str = ppm_values.astype(str).T
 cn_Concentrations_str = cn_Concentrations.astype(str).T
 RGB_KMeans_str = RGB_KMeans.astype(str).T
 RGB_Means_str = RGB_Means.astype(str).T
@@ -279,7 +282,7 @@ data2 = np.vstack((cn_Concentrations,coords, COLORSPACES_str))
 #save the data into a csv file.
 data, sorted_data = save_data(data, image_number, timestr, "1")
 # data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
-plotRGB(sorted_data, ppm_values_str)
+plotRGB(sorted_data, cn_Concentrations_str)
 
 print(colorspaces)
 print("lezgo")
