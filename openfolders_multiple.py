@@ -8,31 +8,51 @@ from natsort import natsorted
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import argparse
 import math
 # Inked90ppmafter2min__LI
 
-#load image
+###folder where in you save the ROI's
+ap = argparse.ArgumentParser()
+ap.add_argument("-id2","--images_id", required=False,
+    help ="images id")
+ap.add_argument("-rf1","--ROI_folder", required=False,
+    help ="filename of the ROI folder")
+ap.add_argument("-rf2", "--ROI2_folder",required=False,
+    help="filename of the ROI2 folder")
+ap.add_argument("-cif", "--captured_images_folder", required=False,
+    help="folder name of the images gathered")
+ap.add_argument("-cisf", "----captured_images_subfolder", required=False,
+    help="subfolder name of the images gathered")
+args = vars(ap.parse_args())
+print(args)
 
+
+
+# ROI_folder = "ROI_45min"
+# ROI2_folder = "ROI2_45min"
+
+ROI_folder = args['ROI_folder']
+ROI2_folder = args['ROI2_folder']
+#load image
 IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
+
+
 # IMAGE_DIRECTORY = os.path.join('captured_images1', 'optimizationA')
-IMAGE_DIRECTORY = IMAGE_PATH+'captured_images3/optimizationA'
+# CAPTURED_IMAGES_FOLDER= "captured_images3" 
+# CAPTURED_IMAGES_SUBFOLDER= "data_gathering_45min" 
+
+CAPTURED_IMAGES_FOLDER= args["captured_images_folder"] 
+CAPTURED_IMAGES_SUBFOLDER= args["captured_images_subfolder"] 
+
+
+IMAGE_DIRECTORY = IMAGE_PATH+str(CAPTURED_IMAGES_FOLDER)+ "/"+ str(CAPTURED_IMAGES_SUBFOLDER)
 
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
 #initialize the list of images, and its filenames
-image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"]
-# image_nos = ["000","01","02"]
-# images = []
-# ppm_values = []
-# subfolders = []
-# image_folders = []
-# imagesss = []
-# imagessss= []
-# imagesssss = []
-# image_paths= []
-# files = os.listdir(IMAGE_DIRECTORY)
-# files = natsorted(files)
-# print(files)
+image_nos =  ["000","01","02","03","04","05","06","07","08","09","10"]
+
 
 
 #function for getting the image
@@ -49,14 +69,6 @@ def get_circles(images,image_number, ppm_values):
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
-        # scale_percent = 100 # percent of original size
-        # width = int(img.shape[1] * scale_percent / 100)
-        # height = int(img.shape[0] * scale_percent / 100)
-        # dim = (width, height)
-        # img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-        # load the image
-        # img = cv2.imread(sys.argv[1])
-        # convert BGR to RGB to be suitable for showing using matplotlib library
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         # make a copy of the original image
         cimg = img.copy()
@@ -139,8 +151,8 @@ def get_circles(images,image_number, ppm_values):
 
             #roi path
             IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
-            roi_path = IMAGE_PATH+ "ROI_3\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
-            roi2_path = IMAGE_PATH+ "ROI_4\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            roi_path = IMAGE_PATH+ ROI_folder+"\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            roi2_path = IMAGE_PATH+ROI2_folder+"\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
             print('roi_path',roi_path)
             
             cv2.imwrite(roi_path, roi)
@@ -157,54 +169,61 @@ def get_circles(images,image_number, ppm_values):
         # plt.show()
         # #plt.show()
 
+def main():
 
-for image_no in image_nos:
-    images = []
-    ppm_values = []
-    subfolders = []
-    image_folders = []
-    imagesss = []
-    imagessss= []
-    imagesssss = []
-    image_paths= []
-    files = os.listdir(IMAGE_DIRECTORY)
-    files = natsorted(files)
+    for image_no in image_nos:
+        images = []
+        ppm_values = []
+        subfolders = []
+        image_folders = []
+        imagesss = []
+        imagessss= []
+        imagesssss = []
+        image_paths= []
+        files = os.listdir(IMAGE_DIRECTORY)
+        files = natsorted(files)
 
 
-    for file in files:
-        # print(file)
-        folder_path = os.path.join(IMAGE_DIRECTORY, file)  
-        
-        for subfolder in os.listdir(folder_path):
-            # print(subfolder)
-            subfolder_path = os.path.join(IMAGE_DIRECTORY,file, subfolder)
-            # print(subfolder_path)
-            for image in os.listdir(subfolder_path): 
+        for file in files:
+            # print(file)
+            folder_path = os.path.join(IMAGE_DIRECTORY, file)  
             
-                print('image_filename',image)
-                image_number, ppm_value,sec,seconds,second = image.split(',')
-                # print(image_number)
-                image_path = os.path.join(IMAGE_DIRECTORY,file, subfolder, image)
-                # print(image_path)
-                if image_number == image_no:
+            for subfolder in os.listdir(folder_path):
+                # print(subfolder)
+                subfolder_path = os.path.join(IMAGE_DIRECTORY,file, subfolder)
+                # print(subfolder_path)
+                for image in os.listdir(subfolder_path): 
                 
-                    images.append(get_image(image_path))
-                    image_paths.append(image_path)
-                    ppm_values.append(ppm_value)
-                    print(image_number)
-                    print(image)
-                    print("diri2")
-            # print(imagesss)
-            
-        # subfolders.append(subfolder)
+                    print('image_filename',image)
+                    image_number, ppm_value,sec,seconds,second = image.split(',')
+                    # print(image_number)
+                    image_path = os.path.join(IMAGE_DIRECTORY,file, subfolder, image)
+                    # print(image_path)
+                    if image_number == image_no:
+                    
+                        images.append(get_image(image_path))
+                        image_paths.append(image_path)
+                        ppm_values.append(ppm_value)
+                        print(image_number)
+                        print(image)
+                        print("diri2")
+                # print(imagesss)
+                
+            # subfolders.append(subfolder)
 
-    print('filenames',image_paths)
-    print('ppm_values',ppm_values)
-    print("lezgoo")
-    print('image number: ',image_no)
-    get_circles(images,image_no,ppm_values)
-    # print(imagesss)
-    print("lezgoo")
-    print(image_paths) 
-    
-    print("lezgoooooooooo")
+        print('filenames',image_paths)
+        print('ppm_values',ppm_values)
+        print("lezgoo")
+        print('image number: ',image_no)
+        get_circles(images,image_no,ppm_values)
+        # print(imagesss)
+        print("lezgoo")
+        print(image_paths) 
+
+        print("lezgoooooooooo")
+
+
+
+
+if __name__ == '__main__':
+    main()

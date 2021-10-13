@@ -48,6 +48,9 @@ def get_circles(images,image_number, ppm_values):
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
+         
+        plt.imshow(img)
+        plt.show()
         # scale_percent = 100 # percent of original size
         # width = int(img.shape[1] * scale_percent / 100)
         # height = int(img.shape[0] * scale_percent / 100)
@@ -105,8 +108,8 @@ def get_circles(images,image_number, ppm_values):
         # cv2.imshow('mask',mask)
         # cv2.waitKey(0)
         
-        # plt.imshow(mask,"bgr")
-        # plt.show()
+        plt.imshow(mask,"gray")
+        plt.show()
        
         #add the mask and the image
         masked =  cv2.bitwise_and(cimg,cimg, mask=mask)

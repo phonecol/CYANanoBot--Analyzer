@@ -86,6 +86,27 @@ def save_data(data,image_number, timestr,fname):
     return  data, sorted_data
 
 
+def scatter_plotRGB(sorted_data, ppm_values_str):
+    
+
+    #plot the RGB_Mean Intensity of the paper sensor that was taken
+    plt.scatter(sorted_data[:,0].astype(float),sorted_data[:,2].astype(float),color='red', marker='o', linestyle='dashed', label = "Red")
+    plt.scatter(sorted_data[:,0].astype(float),sorted_data[:,3].astype(float),color='green', marker='o', linestyle='dashed', label = 'Green')
+    plt.scatter(sorted_data[:,0].astype(float),sorted_data[:,4].astype(float),color='blue', marker='o', linestyle='dashed', label= 'Blue')
+    for a,b in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,2].astype(float).astype(int)): 
+        plt.text(a, b, str(b))
+    
+    for aa,bb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,3].astype(float).astype(int)): 
+        plt.text(aa, bb, str(bb))
+
+    for aaa,bbb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,4].astype(float).astype(int)): 
+        plt.text(aaa, bbb, str(bbb))
+    plt.ylabel('Mean Pixel Intensity')
+    plt.xlabel('Cyanide Concentration (PPM)')
+    plt.title("RGB Colorspace")
+    plt.legend()
+    plt.show()
+
 #function for plotting the data
 def plotRGB(sorted_data, ppm_values_str):
     fig1, (ax1, ax2) = plt.subplots(2, 1)
@@ -283,6 +304,6 @@ data2 = np.vstack((cn_Concentrations,coords, COLORSPACES_str))
 data, sorted_data = save_data(data, image_number, timestr, "1")
 # data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
 plotRGB(sorted_data, cn_Concentrations_str)
-
+scatter_plotRGB(sorted_data, cn_Concentrations_str)
 print(colorspaces)
 print("lezgo")
