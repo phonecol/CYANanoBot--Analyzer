@@ -11,10 +11,11 @@ import time
 
 
 
-ROI_filename = "ROI2_45min"
-ROI_id = "000"
+ROI_filename = "ROI2_newsensor"
+ROI_id = "20" #d = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
+
 IMAGE_DIRECTORY = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\" + ROI_filename +"/" + ROI_id #Choose what certain time of images to be analyzed 'ROI/{id}' , id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20]
-coord_nos = ["2","3","4","5","6","8","9"]
+coord_nos = ["1","2","3"]
 # coord_noo= "3"
 #000 first image without water
 #00 first image with water
@@ -105,6 +106,8 @@ def scatter_plotRGB(sorted_data, ppm_values_str):
     plt.ylabel('Mean Pixel Intensity')
     plt.xlabel('Cyanide Concentration (PPM)')
     plt.title("RGB Colorspace")
+    plt.xlim(0, 120)
+    plt.ylim(0, 270)
     plt.legend()
     plt.show()
 
@@ -129,6 +132,8 @@ def plotRGB(sorted_data, ppm_values_str):
     plt.ylabel('Mean Pixel Intensity')
     plt.xlabel('Cyanide Concentration (PPM)')
     plt.title("RGB Colorspace")
+    plt.xlim(0, 120)
+    plt.ylim(0, 270)
     plt.legend()
     plt.show()
 

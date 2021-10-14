@@ -11,7 +11,7 @@ import sys
 import argparse
 import math
 # Inked90ppmafter2min__LI
-
+##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor
 ###folder where in you save the ROI's
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
@@ -51,7 +51,7 @@ IMAGE_DIRECTORY = IMAGE_PATH+str(CAPTURED_IMAGES_FOLDER)+ "/"+ str(CAPTURED_IMAG
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
 #initialize the list of images, and its filenames
-image_nos =  ["000","01","02","03","04","05","06","07","08","09","10"]
+image_nos =  ["000","00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20"]
 
 
 
@@ -91,7 +91,7 @@ def get_circles(images,image_number, ppm_values):
         # print("asd")
         # print(circles[0,:,0])
         # print("asd")
-        NUM_ROWS = 3
+        NUM_ROWS = 1
         #sort circles
         circles = np.round(circles[0, :]).astype("int")
         circles = sorted(circles, key=lambda v: [v[0], v[0]])

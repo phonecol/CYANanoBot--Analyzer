@@ -187,10 +187,15 @@ class DominantColors:
             histoAxis.set_title(f"Zone {path.split('_')[-1]} Histogram")
 
 
-            #Plots the histograms
-            histoPlotBlue = histoAxis.bar(centers, Bheights, align='center', color='blue', width=edges[1] - edges[0], alpha=0.6)
-            histoPlotGreen = histoAxis.bar(centers, Gheights, align='center', color='green', width=edges[1] - edges[0], alpha=0.6)
-            histoPlotRed = histoAxis.bar(centers, Rheights, align='center', color='red', width=edges[1] - edges[0], alpha=0.6)
+            # #Plots the histograms
+            # histoPlotBlue = histoAxis.bar(centers, Bheights, align='center', color='blue', width=edges[1] - edges[0], alpha=0.6)
+            # histoPlotGreen = histoAxis.bar(centers, Gheights, align='center', color='green', width=edges[1] - edges[0], alpha=0.6)
+            # histoPlotRed = histoAxis.bar(centers, Rheights, align='center', color='red', width=edges[1] - edges[0], alpha=0.6)
+
+            histoAxis.bar(centers, Bheights, align='center', color='blue', width=edges[1] - edges[0], alpha=0.6)
+            histoAxis.bar(centers, Gheights, align='center', color='green', width=edges[1] - edges[0], alpha=0.6)
+            histoAxis.bar(centers, Rheights, align='center', color='red', width=edges[1] - edges[0], alpha=0.6)
+
 
 
             #Saving the figures
