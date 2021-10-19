@@ -24,6 +24,8 @@ ap.add_argument("-cif", "--captured_images_folder", required=False,
     help="folder name of the images gathered")
 ap.add_argument("-cisf", "----captured_images_subfolder", required=False,
     help="subfolder name of the images gathered")
+ap.add_argument("-number of rows","--nr", required=False, default= 3,
+    help ="number of rows")    
 args = vars(ap.parse_args())
 print(args)
 
@@ -51,7 +53,7 @@ IMAGE_DIRECTORY = IMAGE_PATH+str(CAPTURED_IMAGES_FOLDER)+ "/"+ str(CAPTURED_IMAG
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
 #initialize the list of images, and its filenames
-image_nos =  ["000","00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20"]
+image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20"]
 
 
 
@@ -69,7 +71,7 @@ def get_circles(images,image_number, ppm_values):
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+ 
         # make a copy of the original image
         cimg = img.copy()
         # convert image to grayscale
@@ -118,7 +120,7 @@ def get_circles(images,image_number, ppm_values):
         # cv2.imshow('mask',mask)
         # cv2.waitKey(0)
         
-        # plt.imshow(mask,"bgr")
+        # plt.imshow(mask, cmap='gray')
         # plt.show()
        
         #add the mask and the image
@@ -166,7 +168,52 @@ def get_circles(images,image_number, ppm_values):
         print("Number of circles detected:", co)
 
         # plt.imshow(masked)
-        # plt.show()
+        fig = plt.figure(figsize=(10, 7))
+        rows= 1
+        columns = 3
+        #plt.show()
+
+        fig.add_subplot(rows, columns, 1)
+        
+        # showing image
+        plt.imshow(cimg)
+        plt.axis('off')
+        plt.title("Captured Image")
+        
+        # Adds a subplot at the 2nd position
+        fig.add_subplot(rows, columns, 2)
+        
+        # showing image
+        plt.imshow(mask, cmap='gray')
+        plt.axis('off')
+        plt.title("Mask")
+        
+        # Adds a subplot at the 3rd position
+        fig.add_subplot(rows, columns, 3)
+        
+        # showing image
+        plt.imshow(masked)
+        plt.axis('off')
+        plt.title("Masked Image")
+        plt.show()
+        # Adds a subplot at the 4th position
+        fig1 = plt.figure(figsize=(10, 7))
+        
+        fig1.add_subplot(1, 2, 1)
+        
+        # showing image
+        plt.imshow(roi)
+        plt.axis('off')
+        plt.title("Cropped Region of Interest")
+        
+
+        fig1.add_subplot(1, 2, 2)
+        
+        # showing image
+        plt.imshow(roi2)
+        plt.axis('off')
+        plt.title("Cropped Region of Interest 2")
+        plt.show()
         # #plt.show()
 
 def main():
