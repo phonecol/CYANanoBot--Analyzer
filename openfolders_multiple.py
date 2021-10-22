@@ -31,24 +31,41 @@ print(args)
 
 
 
-# ROI_folder = "ROI_45min"
-# ROI2_folder = "ROI2_45min"
+CD = os.getcwd()
+print(CD)
+
+backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
+print(backCD)
+
+DATA_DIRECTORY = os.path.join(backCD,"DATA")
+print(DATA_DIRECTORY)
+
+
 
 ROI_folder = args['ROI_folder']
 ROI2_folder = args['ROI2_folder']
+
 #load image
-IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
+ROI_folder_path = os.path.join(DATA_DIRECTORY,str(ROI_folder))
 
+ROI2_folder_path = os.path.join(DATA_DIRECTORY,str(ROI2_folder))
 
-# IMAGE_DIRECTORY = os.path.join('captured_images1', 'optimizationA')
-# CAPTURED_IMAGES_FOLDER= "captured_images3" 
-# CAPTURED_IMAGES_SUBFOLDER= "data_gathering_45min" 
 
 CAPTURED_IMAGES_FOLDER= args["captured_images_folder"] 
 CAPTURED_IMAGES_SUBFOLDER= args["captured_images_subfolder"] 
+IMAGE_PATH = os.path.join(DATA_DIRECTORY,str(CAPTURED_IMAGES_FOLDER))
 
 
-IMAGE_DIRECTORY = IMAGE_PATH+str(CAPTURED_IMAGES_FOLDER)+ "/"+ str(CAPTURED_IMAGES_SUBFOLDER)
+IMAGE_DIRECTORY = os.path.join(IMAGE_PATH,str(CAPTURED_IMAGES_SUBFOLDER))
+
+
+if not os.path.exists(ROI_folder_path):
+    os.mkdir(ROI_folder_path)
+
+if not os.path.exists(ROI2_folder_path):
+    os.mkdir(ROI2_folder_path)
+
+
 
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
@@ -61,25 +78,34 @@ image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12",
 def get_image(image_path):
     image = cv2.imread(image_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    # cv2.imshow("Image", image)
-    # cv2.waitKey(0)
     return image
 
 
-def get_circles(images,image_number, ppm_values):
+def get_circles(images,image_number, ppm_values, show_image = False):
 
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
- 
-        # make a copy of the original image
-        cimg = img.copy()
-        # convert image to grayscale
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # apply a blur using the median filter
-        img = cv2.medianBlur(img, 5)
-        # finds the circles in the grayscale image using the Hough transform
-        circles = cv2.HoughCircles(
+
+        NUM_ROWS = 1
+       
+       
+        if NUM_ROWS ==1:
+            mask1 = np.zeros(img.shape[:2], dtype="uint8")
+            cv2.rectangle(mask1, (0, 750), (2592, 1400), 255, -1)
+            
+            # cv2.rectangle(mask1, (0, 1200), (1944, 2592), 255, -1)
+
+            img =  cv2.bitwise_and(img,img, mask=mask1)         #add the mask and the image
+
+        # plt.imshow(img)
+        # plt.show()
+        cimg = img.copy()       # make a copy of the original image
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # convert image to grayscale
+        
+        img = cv2.medianBlur(img, 5)    # apply a blur using the median filter
+       
+        circles = cv2.HoughCircles(    # finds the circles in the grayscale image using the Hough transform
             image=img,
             method=cv2.HOUGH_GRADIENT, 
             dp=1,
@@ -89,11 +115,8 @@ def get_circles(images,image_number, ppm_values):
             minRadius=65, #the minimum radius of the paper sensor is 40 pixel
             maxRadius=78  #the maximum radius of the paper sensor is 60 pixel
         )
-        # print(circles)
-        # print("asd")
-        # print(circles[0,:,0])
-        # print("asd")
-        NUM_ROWS = 1
+    
+      
         #sort circles
         circles = np.round(circles[0, :]).astype("int")
         circles = sorted(circles, key=lambda v: [v[0], v[0]])
@@ -109,36 +132,24 @@ def get_circles(images,image_number, ppm_values):
 
         circles = np.uint16(np.around(circles))
 
-        #initialize mask for the paper sensor
-        mask = np.zeros(shape=img.shape[0:2],dtype='uint8')
+
+        mask = np.zeros(shape=img.shape[0:2],dtype='uint8')        #initialize mask for the paper sensor
 
         #create mask for each paper sensor
         for co, i in enumerate(circles, start=1):
-            # draw the outer circle
-            cv2.circle(mask,(int(i[0]),int(i[1])),int(i[2]),(255,255,255),-1)
+   
+            cv2.circle(mask,(int(i[0]),int(i[1])),int(i[2]),(255,255,255),-1)         # draw the outer circle
 
-        # cv2.imshow('mask',mask)
-        # cv2.waitKey(0)
-        
-        # plt.imshow(mask, cmap='gray')
-        # plt.show()
+
+
        
-        #add the mask and the image
-        masked =  cv2.bitwise_and(cimg,cimg, mask=mask)
 
-        # cv2.imshow('masked',masked)
-        # cv2.waitKey(0)
+        masked =  cv2.bitwise_and(cimg,cimg, mask=mask)         #add the mask and the image
 
-        for co, i in enumerate(circles, start=1):
-            # draw the outer circle
-            print(co)
-            # print(i[0])
-            # print(i[1])
-            print(i[2])
-            
+
+        for co, i in enumerate(circles, start=1):          
             cv2.putText(masked,str(co),(int(i[0]+70),int(i[1])+70),cv2.FONT_HERSHEY_SIMPLEX, 1.5,(255,255,255),2)
             # cv2.circle(masked,(int(i[0]),int(i[1])),int(i[2]),(0,255,0),2)
-            
             radius = int(math.ceil(i[2]))
             radius = 75
             origin_x = int(math.ceil(i[0]) - radius)
@@ -147,14 +158,20 @@ def get_circles(images,image_number, ppm_values):
 
             cv2.rectangle(cimg,(origin_x-10,origin_y-10),(origin_x+2*radius+10,origin_y+2*radius+10),(200,0,0),2)
 
-            #cropped the region of interest, roi is the circle, roi2 is a square within the paper sensor
-            roi=masked[origin_y:origin_y+2*radius,origin_x:origin_x+2*radius]
+            
+            roi=masked[origin_y:origin_y+2*radius,origin_x:origin_x+2*radius]   #crop the region of interest, roi is the circle, roi2 is a square within the paper sensor
             roi2=masked[origin_y+30:origin_y+2*radius-30,origin_x+30:origin_x+2*radius-30]
 
             #roi path
-            IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
-            roi_path = IMAGE_PATH+ ROI_folder+"\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
-            roi2_path = IMAGE_PATH+ROI2_folder+"\\" +image_number+'\\'+str(co)+','+str(ppm_values[j]) + '.jpg'
+            # IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
+            ROI_subfolder_path =   os.path.join( ROI_folder_path,image_number)
+            ROI2_subfolder_path =   os.path.join( ROI2_folder_path,image_number)
+            if not os.path.exists(ROI_subfolder_path):
+                os.mkdir(ROI2_subfolder_path)
+                os.mkdir(ROI_subfolder_path)
+
+            roi_path = ROI_subfolder_path+'\\'+str(co)+','+str(ppm_values[j]) + '.png'
+            roi2_path = ROI2_subfolder_path+'\\'+str(co)+','+str(ppm_values[j]) + '.png'
             print('roi_path',roi_path)
             
             cv2.imwrite(roi_path, roi)
@@ -163,58 +180,60 @@ def get_circles(images,image_number, ppm_values):
             # cv2.imwrite("ROI2\\"+image_number+'\\'+str(co)+','+str(ppm_values[j])+ '.jpg', roi2)
             cv2.waitKey(0)
 
-            # roi=cimg[y:y+h,x:x+w]
-        # print the number of circles detected
-        print("Number of circles detected:", co)
+          
+       
+        print("Number of circles detected:", co)     # print the number of circles detected
 
+
+        if show_image:
         # plt.imshow(masked)
-        fig = plt.figure(figsize=(10, 7))
-        rows= 1
-        columns = 3
-        #plt.show()
+            fig = plt.figure(figsize=(10, 7))
+            rows= 1
+            columns = 3
+            #plt.show()
 
-        fig.add_subplot(rows, columns, 1)
-        
-        # showing image
-        plt.imshow(cimg)
-        plt.axis('off')
-        plt.title("Captured Image")
-        
-        # Adds a subplot at the 2nd position
-        fig.add_subplot(rows, columns, 2)
-        
-        # showing image
-        plt.imshow(mask, cmap='gray')
-        plt.axis('off')
-        plt.title("Mask")
-        
-        # Adds a subplot at the 3rd position
-        fig.add_subplot(rows, columns, 3)
-        
-        # showing image
-        plt.imshow(masked)
-        plt.axis('off')
-        plt.title("Masked Image")
-        plt.show()
-        # Adds a subplot at the 4th position
-        fig1 = plt.figure(figsize=(10, 7))
-        
-        fig1.add_subplot(1, 2, 1)
-        
-        # showing image
-        plt.imshow(roi)
-        plt.axis('off')
-        plt.title("Cropped Region of Interest")
-        
+            fig.add_subplot(rows, columns, 1)
+            
+            # showing image
+            plt.imshow(cimg)
+            plt.axis('off')
+            plt.title("Captured Image")
+            
+            # Adds a subplot at the 2nd position
+            fig.add_subplot(rows, columns, 2)
+            
+            # showing image
+            plt.imshow(mask, cmap='gray')
+            plt.axis('off')
+            plt.title("Mask")
+            
+            # Adds a subplot at the 3rd position
+            fig.add_subplot(rows, columns, 3)
+            
+            # showing image
+            plt.imshow(masked)
+            plt.axis('off')
+            plt.title("Masked Image")
+            plt.show()
+            # Adds a subplot at the 4th position
+            fig1 = plt.figure(figsize=(10, 7))
+            
+            fig1.add_subplot(1, 2, 1)
+            
+            # showing image
+            plt.imshow(roi)
+            plt.axis('off')
+            plt.title("Cropped Region of Interest")
+            
 
-        fig1.add_subplot(1, 2, 2)
-        
-        # showing image
-        plt.imshow(roi2)
-        plt.axis('off')
-        plt.title("Cropped Region of Interest 2")
-        plt.show()
-        # #plt.show()
+            fig1.add_subplot(1, 2, 2)
+            
+            # showing image
+            plt.imshow(roi2)
+            plt.axis('off')
+            plt.title("Cropped Region of Interest 2")
+            plt.show()
+            # #plt.show()
 
 def main():
 
@@ -262,7 +281,7 @@ def main():
         print('ppm_values',ppm_values)
         print("lezgoo")
         print('image number: ',image_no)
-        get_circles(images,image_no,ppm_values)
+        get_circles(images,image_no,ppm_values, False)
         # print(imagesss)
         print("lezgoo")
         print(image_paths) 

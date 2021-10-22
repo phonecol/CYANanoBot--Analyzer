@@ -144,8 +144,41 @@ def get_circles(images, ppm_values):
         # cv2.imwrite("coins_circles_detected.png", cimg)
         # show the image
         # plt.imshow(masked)
-        #plt.show()
 
+        rows= 2
+        columns =2
+        #plt.show()
+        fig = plt.figure(figsize=(10, 7))
+        fig.add_subplot(rows, columns, 1)
+        
+        # showing image
+        plt.imshow(img)
+        plt.axis('off')
+        plt.title("First")
+        
+        # Adds a subplot at the 2nd position
+        fig.add_subplot(rows, columns, 2)
+        
+        # showing image
+        plt.imshow(mask)
+        plt.axis('off')
+        plt.title("Second")
+        
+        # Adds a subplot at the 3rd position
+        fig.add_subplot(rows, columns, 3)
+        
+        # showing image
+        plt.imshow(masked)
+        plt.axis('off')
+        plt.title("Third")
+        
+        # Adds a subplot at the 4th position
+        fig.add_subplot(rows, columns, 4)
+        
+        # showing image
+        plt.imshow(roi)
+        plt.axis('off')
+        plt.title("Fourth")
 
 
 for image in os.listdir(IMAGE_DIRECTORY): 

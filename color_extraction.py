@@ -11,7 +11,7 @@ import time
 import argparse
 
 # from openfolders_multiple import ROI_folder
-
+# python color_extraction.py -id2 000 -rf2 ROI2_newsensor_45min
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
@@ -437,7 +437,7 @@ def main():
         print("Dominant Colors: ",rgb_kmeans)
         print("Dominant Colors sorted: ",rgb_kmeans)
         hsv,lab,gray = dc.cvtColorSpace()
-        # dc.plotHistogram()s
+        # dc.plotHistogram()
         # dc.colorPixels()
         rgb_mean,rgb_std,hsv_mean,hsv_std,lab_mean,lab_std, gray_mean, gray_std = dc.getMeanIntensity()  #call the getMeanIntensity function to get the average RGB pixel intensity and its standard deviation of the paper sensor
 

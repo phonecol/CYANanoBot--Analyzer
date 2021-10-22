@@ -18,7 +18,7 @@ print(args)
 
 hiRes = (2592, 1944)
 # midRes = (1920,1080)
-midRes = (2048,1080)
+medRes = (2048,1080)
 lowRes = (640,480)
 if args["reso"] == "H":
     res = hiRes
