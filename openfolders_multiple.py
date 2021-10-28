@@ -11,11 +11,13 @@ import sys
 import argparse
 import math
 # Inked90ppmafter2min__LI
-##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor
+##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -fn new_sensor -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor
 ###folder where in you save the ROI's
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
+ap.add_argument("-fn","--filename", required=False,
+    help ="filename")
 ap.add_argument("-rf1","--ROI_folder", required=False,
     help ="filename of the ROI folder")
 ap.add_argument("-rf2", "--ROI2_folder",required=False,
@@ -30,6 +32,11 @@ args = vars(ap.parse_args())
 print(args)
 
 
+filename = args['filename']
+ROI_folder = args['ROI_folder']
+ROI2_folder = args['ROI2_folder']
+
+
 
 CD = os.getcwd()
 print(CD)
@@ -39,16 +46,12 @@ print(backCD)
 
 DATA_DIRECTORY = os.path.join(backCD,"DATA")
 print(DATA_DIRECTORY)
-
-
-
-ROI_folder = args['ROI_folder']
-ROI2_folder = args['ROI2_folder']
+FILENAME_DIRECTORY = os.path.join(DATA_DIRECTORY,filename)
 
 #load image
-ROI_folder_path = os.path.join(DATA_DIRECTORY,str(ROI_folder))
+ROI_folder_path = os.path.join(FILENAME_DIRECTORY,str(ROI_folder))
 
-ROI2_folder_path = os.path.join(DATA_DIRECTORY,str(ROI2_folder))
+ROI2_folder_path = os.path.join(FILENAME_DIRECTORY,str(ROI2_folder))
 
 
 CAPTURED_IMAGES_FOLDER= args["captured_images_folder"] 
@@ -58,6 +61,8 @@ IMAGE_PATH = os.path.join(DATA_DIRECTORY,str(CAPTURED_IMAGES_FOLDER))
 
 IMAGE_DIRECTORY = os.path.join(IMAGE_PATH,str(CAPTURED_IMAGES_SUBFOLDER))
 
+if not os.path.exists(FILENAME_DIRECTORY):
+    os.mkdir(FILENAME_DIRECTORY)
 
 if not os.path.exists(ROI_folder_path):
     os.mkdir(ROI_folder_path)
