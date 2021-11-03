@@ -5,7 +5,7 @@ import datetime
 import os
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-f","--filename", required=True,
+ap.add_argument("-fn","--filename", required=True,
     help ="filename of the images")
 ap.add_argument("-i", "--images", type = int, default = 5,
     help="number of images to be captured")

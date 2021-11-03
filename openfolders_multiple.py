@@ -11,7 +11,7 @@ import sys
 import argparse
 import math
 # Inked90ppmafter2min__LI
-##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -fn new_sensor -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor
+##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -fn new_sensor -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor -fn newsensor_45min -nr 3
 ###folder where in you save the ROI's
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
@@ -26,7 +26,7 @@ ap.add_argument("-cif", "--captured_images_folder", required=False,
     help="folder name of the images gathered")
 ap.add_argument("-cisf", "----captured_images_subfolder", required=False,
     help="subfolder name of the images gathered")
-ap.add_argument("-number of rows","--nr", required=False, default= 3,
+ap.add_argument("-nr","--number_rows", required=False, default= 3,type=int,
     help ="number of rows")    
 args = vars(ap.parse_args())
 print(args)
@@ -35,7 +35,7 @@ print(args)
 filename = args['filename']
 ROI_folder = args['ROI_folder']
 ROI2_folder = args['ROI2_folder']
-
+NUM_ROWS = args['number_rows']
 
 
 CD = os.getcwd()
@@ -86,13 +86,13 @@ def get_image(image_path):
     return image
 
 
-def get_circles(images,image_number, ppm_values, show_image = False):
+def get_circles(images,image_number, ppm_values, show_image = False, NUM_ROWS=3):
 
     for j in range(len(images)):
         print('image: ',j)
         img = images[j]
 
-        NUM_ROWS = 1
+        # NUM_ROWS = 1
        
        
         if NUM_ROWS ==1:
@@ -286,7 +286,7 @@ def main():
         print('ppm_values',ppm_values)
         print("lezgoo")
         print('image number: ',image_no)
-        get_circles(images,image_no,ppm_values, False)
+        get_circles(images,image_no,ppm_values, False, NUM_ROWS)
         # print(imagesss)
         print("lezgoo")
         print(image_paths) 

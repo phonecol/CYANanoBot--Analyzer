@@ -42,6 +42,9 @@ print(DATA_DIRECTORY)
 
 FILENAME_DIRECTORY = os.path.join(DATA_DIRECTORY,filename)
 print(FILENAME_DIRECTORY)
+
+if not os.path.exists(FILENAME_DIRECTORY):
+    os.mkdir(FILENAME_DIRECTORY)
 IMAGES_DIRECTORY = os.path.join(FILENAME_DIRECTORY,str(ROI2_folder))
 
 IMAGE_DIRECTORY = os.path.join(IMAGES_DIRECTORY,str(images_id_no))

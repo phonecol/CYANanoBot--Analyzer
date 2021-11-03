@@ -67,7 +67,7 @@ df = pd.read_csv(csv_path)
 print(df.head())
 
 
-features = ['R','G','B','H','Gray']
+features = ['R','G','B','H']
 target = '# Cyanide Concentration'
 
 X = df[features]
