@@ -119,18 +119,18 @@ class Ui_MainWindow(object):
 
     def image_acquisition(self):
         print("Image Acquisition Program")
-        subprocess.run(['python', 'captureimage.py', '-fn', 'new_sensor','-i','30', '-e', '100', '-r', 'H'])
+        subprocess.run(['python', 'image_acquisition_program.py', '-fn', 'new_sensor','-i','30', '-e', '100', '-r', 'H'])
         print("Done")
 
     def roi_extraction(self):
        
         print("Paper sensor detection and cropping program")
-        subprocess.run(['python', 'openfolders_multiple.py', '-fn', 'new_sensor','-id2','10', '-rf1','ROI_newsensor', '-rf2', 'ROI2_newsensor', '-cif','captured_images3','-cisf', 'data_gathering_newsensor', '-nr','3', '-si','False'])
+        subprocess.run(['python', 'paper_sensor_detection_program.py', '-fn', 'new_sensor','-id2','10', '-rf1','ROI_newsensor', '-rf2', 'ROI2_newsensor', '-cif','captured_images3','-cisf', 'data_gathering_newsensor', '-nr','3', '-si','False'])
 
     def color_extraction(self):
      
         print("Color Extraction Program")
-        subprocess.run(['python', 'color_extraction.py','-id2','11', '-rf2', 'ROI2_newsensor', '-fn', 'new_sensor'])
+        subprocess.run(['python', 'color_extraction_program.py','-id2','11', '-rf2', 'ROI2_newsensor', '-fn', 'new_sensor'])
         print("Done")
 
 

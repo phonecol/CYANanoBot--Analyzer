@@ -45,6 +45,18 @@ CAPTURED_IMAGES_SUB_DIR= args["captured_images_subfolder"]
 show_image = args["show_image"]
 DATA_DIR = "DATA"
 
+###DATA
+######CAPTURED_IMAGES
+#########PAPER_SENSOR
+############CN_CONCENTRATION
+###############TIMESTAMP
+##################IMAGES.PNG
+
+###DATA
+######PAPER_SENSOR
+#########ROI_PAPER_SENSOR
+#########ROI2_PAPER_SENSOR
+
 
 ### LOCATE and INITIALIZE DIRECTORIES 
 
@@ -57,22 +69,22 @@ print(DATA_PATH)
 FILENAME_PATH = os.path.join(DATA_PATH,FILENAME_DIR)
 
 #load image
-ROI_PATH = os.path.join(FILENAME_PATH,str(ROI_DIR))
-ROI2_PATH = os.path.join(FILENAME_PATH,str(ROI2_DIR))
+ROI_DIR = os.path.join(FILENAME_PATH,str(ROI_DIR))
+ROI2_DIR = os.path.join(FILENAME_PATH,str(ROI2_DIR))
 IMAGES_PATH = os.path.join(DATA_PATH,str(CAPTURED_IMAGES_DIR))
 print(IMAGES_PATH)
 IMAGE_PATH = os.path.join(IMAGES_PATH,str(CAPTURED_IMAGES_SUB_DIR))
 print(IMAGE_PATH)
 
 ### Create directories
-if not os.path.exists(FILENAME_PATH):
-    os.mkdir(FILENAME_PATH)
+if not os.path.exists(FILENAME_DIR):
+    os.mkdir(FILENAME_DIR)
 
-if not os.path.exists(ROI_PATH):
-    os.mkdir(ROI_PATH)
+if not os.path.exists(ROI_DIR):
+    os.mkdir(ROI_DIR)
 
-if not os.path.exists(ROI2_PATH):
-    os.mkdir(ROI2_PATH)
+if not os.path.exists(ROI2_DIR):
+    os.mkdir(ROI2_DIR)
 
 
 
@@ -173,22 +185,18 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
 
             #roi path
             # IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
-            ROI_subfolder_path =   os.path.join( ROI_PATH,image_number,'')
-            ROI2_subfolder_path =   os.path.join( ROI2_PATH,image_number,'')
+            ROI_subfolder_path =   os.path.join( ROI_DIR,image_number)
+            ROI2_subfolder_path =   os.path.join( ROI2_DIR,image_number)
             if not os.path.exists(ROI_subfolder_path):
+                os.mkdir(ROI2_subfolder_path)
                 os.mkdir(ROI_subfolder_path)
 
-            if not os.path.exists(ROI2_subfolder_path):
-                os.mkdir(ROI2_subfolder_path)
-
-            roi_path = ROI_subfolder_path + str(co) + ',' + str(ppm_values[j]) + '.png'
-            roi2_path = ROI2_subfolder_path + str(co) + ',' + str(ppm_values[j]) + '.png'
+            roi_path = ROI_subfolder_path+'\\'+str(co)+','+str(ppm_values[j]) + '.png'
+            roi2_path = ROI2_subfolder_path+'\\'+str(co)+','+str(ppm_values[j]) + '.png'
             print('roi_path',roi_path)
             
-
-            
-            cv2.imwrite(roi_path, roi) ##save the cropped roi
-            cv2.imwrite(roi2_path,roi2)##save the cropped roi
+            cv2.imwrite(roi_path, roi)
+            cv2.imwrite(roi2_path,roi2)
 
             # cv2.imwrite("ROI2\\"+image_number+'\\'+str(co)+','+str(ppm_values[j])+ '.jpg', roi2)
             cv2.waitKey(0)
