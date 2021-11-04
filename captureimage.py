@@ -4,6 +4,8 @@ import argparse
 import datetime
 import os
 
+#python captureimage.py -fn newsensor -i 60 -e 100 -r H
+###ARGUMENT PARSER
 ap = argparse.ArgumentParser()
 ap.add_argument("-fn","--filename", required=True,
     help ="filename of the images")

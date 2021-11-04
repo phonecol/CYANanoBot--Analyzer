@@ -15,7 +15,7 @@ import pandas as pd
 from Regression.regressions import multiple_linear_regression
 
 # from openfolders_multiple import ROI_folder
-# python color_extraction.py -id2 000 -rf2 ROI2_newsensor_45min
+# python create_regression_model.py -id2 000 -rf2 ROI2_newsensor_45min -fn new_sensor
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
@@ -39,19 +39,19 @@ print(CD)
 backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
 print(backCD)
 
-DATA_DIRECTORY = os.path.join(backCD,"DATA")
-print(DATA_DIRECTORY)
+DATA_DIR = os.path.join(backCD,"DATA")
+print(DATA_DIR)
 
-FILENAME_DIRECTORY = os.path.join(DATA_DIRECTORY,filename)
-print(FILENAME_DIRECTORY)
+FILENAME_DIR = os.path.join(DATA_DIR,filename)
+print(FILENAME_DIR)
 
-color_data_folder = os.path.join(FILENAME_DIRECTORY, "ColorData")
+color_data_dir = os.path.join(FILENAME_DIR, "ColorData")
 
-data_path = os.path.join(color_data_folder, str(images_id_no))
+data_dir = os.path.join(color_data_dir, str(images_id_no))
 
-print(data_path)
+print(data_dir)
 
-files = os.listdir(data_path)
+files = os.listdir(data_dir)
 print(files)
 
 
@@ -59,10 +59,10 @@ def find_csv_filenames( data_path, suffix=".csv" ):
     filenames = os.listdir(data_path)
     return [ filename for filename in filenames if filename.endswith( suffix ) ]
 
-csv = find_csv_filenames(data_path)
+csv = find_csv_filenames(data_dir)
 print(csv[-1])
 
-csv_path = os.path.join(data_path,csv[-1])
+csv_path = os.path.join(data_dir,csv[-1])
 df = pd.read_csv(csv_path)
 print(df.head())
 
@@ -79,4 +79,4 @@ print(X)
 print(y)
 
 print("\nMULTIPLE LINEAR REGRESSION")
-multiple_linear_regression(X,y,FILENAME_DIRECTORY)
+multiple_linear_regression(X,y,FILENAME_DIR)

@@ -18,18 +18,33 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
 ap.add_argument("-fn", "--filename",required=False,
-    help="filename of the ROI2 folder")
+    help="filename of the paper sensor folder")
 ap.add_argument("-rf2", "--ROI2_folder",required=False,
     help="filename of the ROI2 folder")
 
 args = vars(ap.parse_args())
 print(args)
 
-filename = args['filename']
+FILENAME_DIR = args['filename']
 images_id_no = args['images_id']
 ROI2_folder= args['ROI2_folder']
 fnamee =  ROI2_folder
+DATA_DIR = "DATA"
 
+
+
+###DATA
+######PAPER_SENSOR
+#########model
+#########ROI_PAPER_SENSOR
+#########ROI2_PAPER_SENSOR
+#########ColorData
+############IMG_ID
+###############CSV
+###############PLOTS
+###############HISTOGRAMS
+##################HistogramsCSV
+##################HistogramsPNG
 
 CD = os.getcwd()
 print(CD)
@@ -37,38 +52,51 @@ print(CD)
 backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
 print(backCD)
 
-DATA_DIRECTORY = os.path.join(backCD,"DATA")
-print(DATA_DIRECTORY)
+DATA_PATH = os.path.join(backCD,DATA_DIR)
+print(DATA_PATH)
 
-FILENAME_DIRECTORY = os.path.join(DATA_DIRECTORY,filename)
-print(FILENAME_DIRECTORY)
+FILENAME_PATH = os.path.join(DATA_PATH,FILENAME_DIR)
+print(FILENAME_PATH)
 
-if not os.path.exists(FILENAME_DIRECTORY):
-    os.mkdir(FILENAME_DIRECTORY)
-IMAGES_DIRECTORY = os.path.join(FILENAME_DIRECTORY,str(ROI2_folder))
+if not os.path.exists(FILENAME_PATH):
+    os.mkdir(FILENAME_PATH)
 
-IMAGE_DIRECTORY = os.path.join(IMAGES_DIRECTORY,str(images_id_no))
+ROI2_PATH = os.path.join(FILENAME_PATH,str(ROI2_folder))
 
-color_data_folder = os.path.join(FILENAME_DIRECTORY, "ColorData")
-print(color_data_folder)
-if not os.path.exists(color_data_folder):
-    os.mkdir(color_data_folder)
+if not os.path.exists(ROI2_PATH):
+    os.mkdir(ROI2_PATH)
+
+IMAGE_PATH = os.path.join(ROI2_PATH,str(images_id_no))
+
+if not os.path.exists(IMAGE_PATH):
+    os.mkdir(IMAGE_PATH)
+
+print(IMAGE_PATH)
+
+COLOR_DATA_DIR = "ColorData"
+COLOR_DATA_PATH = os.path.join(FILENAME_PATH, COLOR_DATA_DIR)
+print(COLOR_DATA_PATH)
+if not os.path.exists(COLOR_DATA_PATH):
+    os.mkdir(COLOR_DATA_PATH)
 
 # color_data_folder = os.path.join(color_data_folder, ROI2_folder)
 # print(color_data_folder)
 
-data_path = os.path.join(color_data_folder, str(images_id_no))
+data_path = os.path.join(COLOR_DATA_PATH, str(images_id_no))
 print(data_path)
 
+if not os.path.exists(data_path):
+    os.mkdir(data_path)
 
-histograms_path = os.path.join(data_path,"Histograms")
+histograms_dir = "Histograms"
+histograms_path = os.path.join(data_path,histograms_dir)
+if not os.path.exists(histograms_path):
+    os.mkdir(histograms_path)
 
 coord_no = "4"
 # if not os.path.exists(color_data_folder):
 #     os.mkdir(color_data_folder)
 
-os.mkdir(data_path)
-os.mkdir(histograms_path)
 
 
 # coord_noo= "3"
@@ -96,13 +124,14 @@ def get_images_from_a_folder(path, coord_no):
     combined = []
     cn_Concentrations=[]
     coords = []
+    print(path)
     files = os.listdir(path)
     files = natsorted(files)
     print(files)
 
     #a loop for getting the images in the folder and append them into a list
     for file in files:
-        image = get_image(os.path.join(IMAGE_DIRECTORY, file))
+        image = get_image(os.path.join(path, file))
         # ppm_value1, image_type = file.split('.')#split the filename to remove the image type
         ppm_value1 = file[:-4]
         coord, cn_Concentration = ppm_value1.split(',')#split the coordinate of the paper sensor in the spotplate and the cyanide concentration
@@ -119,7 +148,7 @@ def get_images_from_a_folder(path, coord_no):
     return images, ppm_values, cn_Concentrations, coords
 
 #function for saving the data
-def save_data(data,image_number, timestr,fname):
+def save_data(data,image_number,data_path, timestr,fname):
     # print("data",data)
     
     data = data.T ##transpose the data array##
@@ -159,12 +188,12 @@ def main():
 
 
     # _,_,_,image_number = IMAGE_DIRECTORY.split("\\")
-    tail = os.path.split(IMAGE_DIRECTORY)
+    tail = os.path.split(IMAGE_PATH)
     image_number = tail[1]
-    images , ppm_values, cn_Concentrations, coords = get_images_from_a_folder(IMAGE_DIRECTORY, coord_no)
+    images , ppm_values, cn_Concentrations, coords = get_images_from_a_folder(IMAGE_PATH, coord_no)
 
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
-    # print(timestr)
+    print(timestr)
 
 
 
@@ -239,7 +268,7 @@ def main():
     data = np.vstack((cn_Concentrations,coords,RGB_Means_str,RGB_stds_str,HSV_Means_str,HSV_stds_str,Lab_Means_str,Lab_stds_str,Gray_Means_str, Gray_stds_str))
     data2 = np.vstack((cn_Concentrations,coords, COLORSPACES_str))
     #save the data into a csv file.
-    data, sorted_data = save_data(data, image_number, timestr, fnamee)
+    data, sorted_data = save_data(data, image_number,data_path, timestr, fnamee)
     # data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
     pC.plotRGB(sorted_data, cn_Concentrations_str,data_path)
     pC.scatter_plotRGB(sorted_data, cn_Concentrations_str,data_path)

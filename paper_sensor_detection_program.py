@@ -13,6 +13,8 @@ import math
 # Inked90ppmafter2min__LI
 ##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -fn new_sensor -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor -fn newsensor_45min -nr 3
 ###folder where in you save the ROI's
+
+###ARGUMENT PARSER
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
@@ -26,49 +28,51 @@ ap.add_argument("-cif", "--captured_images_folder", required=False,
     help="folder name of the images gathered")
 ap.add_argument("-cisf", "----captured_images_subfolder", required=False,
     help="subfolder name of the images gathered")
+ap.add_argument("-si", "--show_image", required=False,type= bool,
+    help="show images")    
 ap.add_argument("-nr","--number_rows", required=False, default= 3,type=int,
     help ="number of rows")    
 args = vars(ap.parse_args())
 print(args)
 
-
-filename = args['filename']
-ROI_folder = args['ROI_folder']
-ROI2_folder = args['ROI2_folder']
+### save arguments to variables
+FILENAME_DIR = args['filename']
+ROI_DIR = args['ROI_folder']
+ROI2_DIR = args['ROI2_folder']
 NUM_ROWS = args['number_rows']
+CAPTURED_IMAGES_DIR= args["captured_images_folder"] 
+CAPTURED_IMAGES_SUB_DIR= args["captured_images_subfolder"] 
+show_image = args["show_image"]
+DATA_DIR = "DATA"
 
+
+### LOCATE and INITIALIZE DIRECTORIES 
 
 CD = os.getcwd()
 print(CD)
-
 backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
 print(backCD)
-
-DATA_DIRECTORY = os.path.join(backCD,"DATA")
-print(DATA_DIRECTORY)
-FILENAME_DIRECTORY = os.path.join(DATA_DIRECTORY,filename)
+DATA_PATH = os.path.join(backCD,DATA_DIR)
+print(DATA_PATH)
+FILENAME_PATH = os.path.join(DATA_PATH,FILENAME_DIR)
 
 #load image
-ROI_folder_path = os.path.join(FILENAME_DIRECTORY,str(ROI_folder))
+ROI_DIR = os.path.join(FILENAME_PATH,str(ROI_DIR))
+ROI2_DIR = os.path.join(FILENAME_PATH,str(ROI2_DIR))
+IMAGES_PATH = os.path.join(DATA_PATH,str(CAPTURED_IMAGES_DIR))
+print(IMAGES_PATH)
+IMAGE_PATH = os.path.join(IMAGES_PATH,str(CAPTURED_IMAGES_SUB_DIR))
+print(IMAGE_PATH)
 
-ROI2_folder_path = os.path.join(FILENAME_DIRECTORY,str(ROI2_folder))
+### Create directories
+if not os.path.exists(FILENAME_DIR):
+    os.mkdir(FILENAME_DIR)
 
+if not os.path.exists(ROI_DIR):
+    os.mkdir(ROI_DIR)
 
-CAPTURED_IMAGES_FOLDER= args["captured_images_folder"] 
-CAPTURED_IMAGES_SUBFOLDER= args["captured_images_subfolder"] 
-IMAGE_PATH = os.path.join(DATA_DIRECTORY,str(CAPTURED_IMAGES_FOLDER))
-
-
-IMAGE_DIRECTORY = os.path.join(IMAGE_PATH,str(CAPTURED_IMAGES_SUBFOLDER))
-
-if not os.path.exists(FILENAME_DIRECTORY):
-    os.mkdir(FILENAME_DIRECTORY)
-
-if not os.path.exists(ROI_folder_path):
-    os.mkdir(ROI_folder_path)
-
-if not os.path.exists(ROI2_folder_path):
-    os.mkdir(ROI2_folder_path)
+if not os.path.exists(ROI2_DIR):
+    os.mkdir(ROI2_DIR)
 
 
 
@@ -86,7 +90,7 @@ def get_image(image_path):
     return image
 
 
-def get_circles(images,image_number, ppm_values, show_image = False, NUM_ROWS=3):
+def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False):
 
     for j in range(len(images)):
         print('image: ',j)
@@ -169,8 +173,8 @@ def get_circles(images,image_number, ppm_values, show_image = False, NUM_ROWS=3)
 
             #roi path
             # IMAGE_PATH = "C:\\Users\\CYANanoBot\\Desktop\\DATA\\"
-            ROI_subfolder_path =   os.path.join( ROI_folder_path,image_number)
-            ROI2_subfolder_path =   os.path.join( ROI2_folder_path,image_number)
+            ROI_subfolder_path =   os.path.join( ROI_DIR,image_number)
+            ROI2_subfolder_path =   os.path.join( ROI2_DIR,image_number)
             if not os.path.exists(ROI_subfolder_path):
                 os.mkdir(ROI2_subfolder_path)
                 os.mkdir(ROI_subfolder_path)
@@ -251,24 +255,25 @@ def main():
         imagessss= []
         imagesssss = []
         image_paths= []
-        files = os.listdir(IMAGE_DIRECTORY)
+        print(IMAGE_PATH)
+        files = os.listdir(IMAGE_PATH)
         files = natsorted(files)
 
 
         for file in files:
             # print(file)
-            folder_path = os.path.join(IMAGE_DIRECTORY, file)  
+            folder_path = os.path.join(IMAGE_PATH, file)  
             
             for subfolder in os.listdir(folder_path):
                 # print(subfolder)
-                subfolder_path = os.path.join(IMAGE_DIRECTORY,file, subfolder)
+                subfolder_path = os.path.join(IMAGE_PATH,file, subfolder)
                 # print(subfolder_path)
                 for image in os.listdir(subfolder_path): 
                 
                     print('image_filename',image)
                     image_number, ppm_value,sec,seconds,second = image.split(',')
                     # print(image_number)
-                    image_path = os.path.join(IMAGE_DIRECTORY,file, subfolder, image)
+                    image_path = os.path.join(IMAGE_PATH,file, subfolder, image)
                     # print(image_path)
                     if image_number == image_no:
                     
@@ -286,7 +291,7 @@ def main():
         print('ppm_values',ppm_values)
         print("lezgoo")
         print('image number: ',image_no)
-        get_circles(images,image_no,ppm_values, False, NUM_ROWS)
+        get_circles(images,image_no,ppm_values, NUM_ROWS, show_image)
         # print(imagesss)
         print("lezgoo")
         print(image_paths) 
