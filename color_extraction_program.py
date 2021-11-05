@@ -93,7 +93,7 @@ histograms_path = os.path.join(data_path,histograms_dir)
 if not os.path.exists(histograms_path):
     os.mkdir(histograms_path)
 
-coord_no = "4"
+coord_no = "8"
 # if not os.path.exists(color_data_folder):
 #     os.mkdir(color_data_folder)
 
@@ -138,12 +138,12 @@ def get_images_from_a_folder(path, coord_no):
         cn_Concentration = cn_Concentration[:-3]
 
         #append the images, cyanide concentrations, and coordinates
-        # if coord == coord_no:
-        images.append(image)
-        ppm_values.append(cn_Concentration)
-        combined.append((image, cn_Concentration))
-        cn_Concentrations.append(cn_Concentration)
-        coords.append(coord)
+        if coord == coord_no:
+            images.append(image)
+            ppm_values.append(cn_Concentration)
+            combined.append((image, cn_Concentration))
+            cn_Concentrations.append(cn_Concentration)
+            coords.append(coord)
 
     return images, ppm_values, cn_Concentrations, coords
 

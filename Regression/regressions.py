@@ -26,7 +26,7 @@ def linear_regression(x,y,filename_path):
     ##predict response 
     y_pred = model.predict(x_test)
     print('predicted response:', y_pred, sep='\n')
-    
+    print('actual response:', y_test, sep='\n')
 
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred)
@@ -59,15 +59,17 @@ def multiple_linear_regression(x,y,filename_path):
     #predict response 
     y_pred = model.predict(x_test)
     print('predicted response:', y_pred, sep='\n')
-
-    
+    print('actual response:', y_test, sep='\n')
+    print(y_pred-y_test)
     #calculate mean squared error 
-    mse = mean_squared_error(y_test, y_pred)
+    mse = mean_squared_error(y_test, y_pred, squared=False)
     print("Mean Squared Error: ",mse)
 
     #save model
     filename = filename_path+'\\multiple_linear_finalized_model.sav'
     pickle.dump(model, open(filename, 'wb'))
+    
+    return r_sq,mse
  
 
 ### Function for polynomial regression
@@ -101,6 +103,7 @@ def polynomial_regression(x,y,filename_path):
     #predict response
     y_pred = model.predict(x_test_)
     print('predicted response:', y_pred, sep='\n')
+    print('actual response:', y_test, sep='\n')
 
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred)
@@ -137,7 +140,7 @@ def multiple_polynomial_regression(x,y,filename_path):
     y_pred = model.predict(x_test_)
     
     print('predicted response:', y_pred, sep='\n')
-
+    print('actual response:', y_test, sep='\n')
     
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred)

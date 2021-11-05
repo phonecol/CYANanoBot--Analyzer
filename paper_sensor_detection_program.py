@@ -45,7 +45,7 @@ CAPTURED_IMAGES_SUB_DIR= args["captured_images_subfolder"]
 show_image = args["show_image"]
 DATA_DIR = "DATA"
 
-
+# show_image = True
 ### LOCATE and INITIALIZE DIRECTORIES 
 
 CD = os.getcwd()
@@ -79,14 +79,14 @@ if not os.path.exists(ROI2_PATH):
 #  id = [000,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,...29]
 
 #initialize the list of images, and its filenames
-image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20"]
+image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","29","30"]
 
 
 
 #function for getting the image
 def get_image(image_path):
     image = cv2.imread(image_path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image
 
 
@@ -208,7 +208,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             fig.add_subplot(rows, columns, 1)
             
             # showing image
-            plt.imshow(cimg)
+            plt.imshow(cv2.cvtColor(cimg, cv2.COLOR_BGR2RGB))
             plt.axis('off')
             plt.title("Captured Image")
             
@@ -224,7 +224,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             fig.add_subplot(rows, columns, 3)
             
             # showing image
-            plt.imshow(masked)
+            plt.imshow(cv2.cvtColor(masked, cv2.COLOR_BGR2RGB))
             plt.axis('off')
             plt.title("Masked Image")
             plt.show()
@@ -234,7 +234,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             fig1.add_subplot(1, 2, 1)
             
             # showing image
-            plt.imshow(roi)
+            plt.imshow(cv2.cvtColor(roi, cv2.COLOR_BGR2RGB))
             plt.axis('off')
             plt.title("Cropped Region of Interest")
             
@@ -242,7 +242,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             fig1.add_subplot(1, 2, 2)
             
             # showing image
-            plt.imshow(roi2)
+            plt.imshow(cv2.cvtColor(roi2, cv2.COLOR_BGR2RGB))
             plt.axis('off')
             plt.title("Cropped Region of Interest 2")
             plt.show()
