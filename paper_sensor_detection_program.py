@@ -45,7 +45,7 @@ CAPTURED_IMAGES_SUB_DIR= args["captured_images_subfolder"]
 show_image = args["show_image"]
 DATA_DIR = "DATA"
 
-# show_image = True
+show_image = False
 ### LOCATE and INITIALIZE DIRECTORIES 
 
 CD = os.getcwd()
