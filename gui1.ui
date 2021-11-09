@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -53,7 +56,7 @@
     <property name="title">
      <string>GroupBox</string>
     </property>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="iap_button">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -66,7 +69,7 @@
       <string>Image Acquisition Program</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="cep_button">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -88,7 +91,7 @@
       <string>Color Extraction Program</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="rap_button">
      <property name="geometry">
       <rect>
        <x>520</x>
@@ -101,7 +104,7 @@
       <string>Regression Analysis Program</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="pdp_button">
      <property name="geometry">
       <rect>
        <x>780</x>
@@ -144,10 +147,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>270</y>
+      <x>430</x>
+      <y>240</y>
       <width>321</width>
-      <height>231</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="title">
@@ -159,7 +162,7 @@
        <x>10</x>
        <y>40</y>
        <width>301</width>
-       <height>161</height>
+       <height>171</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout">
@@ -225,12 +228,145 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QPushButton" name="ia_clear_all_button">
+        <property name="text">
+         <string>Clear All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ia_apply_button">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="ia_run_button">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>260</y>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Run Program</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>240</y>
+      <width>321</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Color Extraction Program Parameters</string>
+    </property>
+    <widget class="QWidget" name="formLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>301</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_29">
+        <property name="text">
+         <string>Name of Paper Sensor </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="ce_paper_sensor"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_30">
+        <property name="text">
+         <string>images id</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="ce_id"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_32">
+        <property name="text">
+         <string>ROI 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="ce_rf2"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="ce_run_button">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>160</y>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Run Program</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="ce_clear_all_button">
+        <property name="text">
+         <string>Clear All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ce_apply_button">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>270</y>
+      <x>430</x>
+      <y>240</y>
       <width>321</width>
       <height>361</height>
      </rect>
@@ -344,16 +480,143 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_6">
+       <widget class="QPushButton" name="pd_clear_all_button">
         <property name="text">
          <string>Clear All</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="pd_apply_button">
         <property name="text">
          <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>240</y>
+      <width>321</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Regression Analysis Program Parameters</string>
+    </property>
+    <widget class="QWidget" name="formLayoutWidget_7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>301</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_7">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_35">
+        <property name="text">
+         <string>Name of Paper Sensor </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="ra_paper_sensor"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_36">
+        <property name="text">
+         <string>images id</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="ra_id"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="ra_run_button">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>250</y>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Run Program</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="ra_clear_all_button">
+        <property name="text">
+         <string>Clear All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ra_apply_button">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>301</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QRadioButton" name="ra_lr_radioButton">
+        <property name="text">
+         <string>Linear Regression</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="ra_mlr_radioButton">
+        <property name="text">
+         <string>Multiple Linear Regression</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="ra_pr_radioButton">
+        <property name="text">
+         <string>Polynomial Regressiion</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="ra_mpr_radioButton">
+        <property name="text">
+         <string>Multiple Polynomial Regression</string>
         </property>
        </widget>
       </item>
