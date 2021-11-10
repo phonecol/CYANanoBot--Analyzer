@@ -1,12 +1,12 @@
 from time import sleep, time
-from openfolders_multiple import CAPTURED_IMAGES_FOLDER
+
 from picamera import PiCamera
 import numpy as np
 import cv2
 import datetime as dt
 import os
 import argparse
-
+#$ python image_acquisition_program.py -cn 100ppm -ps paper_sensor_name -i 30 -cif captured_images3 -e 100 -in 30 -r H 
 ap = argparse.ArgumentParser()
 # 
 ap.add_argument("-cn","--concentration", required=True,

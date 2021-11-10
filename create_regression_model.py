@@ -9,29 +9,34 @@ from imutils import build_montages
 from operator import itemgetter
 import time
 import argparse
-from paper_sensor_detection_program import DATA_DIR
-# from openfolders_multiple import FILENAME_DIRECTORY
+
 import plot_cn as pC
 import pandas as pd
-from Regression.regressions import multiple_linear_regression,multiple_polynomial_regression
+from Regression.regressions import multiple_linear_regression,multiple_polynomial_regression, linear_regression, polynomial_regression
 
 # from openfolders_multiple import ROI_folder
-# python create_regression_model.py -id2 000 -rf2 ROI2_newsensor_45min -fn new_sensor
+# python create_regression_model.py -id2 000 -rf2 ROI2_newsensor_45min -ps new_sensor -rm Linear Regression -fr 'R','G','B'
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
-ap.add_argument("-fn", "--filename",required=False,
+ap.add_argument("-ps", "--paper_sensor",required=False,
     help="filename of the ROI2 folder")
-ap.add_argument("-rf2", "--ROI2_folder",required=False,
-    help="filename of the ROI2 folder")
-
+ap.add_argument("-fr", "--feature",required=False,
+    help="features")
+ap.add_argument("-rm", "--regression_model",required=False,
+    help="regression model")
 args = vars(ap.parse_args())
 print(args)
 
-FILENAME_DIR = args['filename']
+regression_model = args['regression_model']
+feature = args['feature']
+
+
+
+FILENAME_DIR = args['paper_sensor']
 images_id_no = args['images_id']
-ROI2_DIR= args['ROI2_folder']
-fnamee =  ROI2_DIR
+# ROI2_DIR= args['ROI2_folder']
+# fnamee =  ROI2_DIR
 DATA_DIR = "DATA"
 
 CD = os.getcwd()
@@ -71,7 +76,7 @@ df = pd.read_csv(csv_path)
 print(df.head())
 
 
-features = ['R','G','B']
+features = [feature]
 target = '# Cyanide Concentration'
 
 X = df[features]
@@ -80,58 +85,29 @@ y = df[target]
 
 # print(X)
 # print(y)
-
-print("\nMULTIPLE LINEAR REGRESSION")
-r_sq, mse = multiple_linear_regression(X,y,data_dir)
-R_2.append(r_sq)
-MSE.append(mse)
-
-
-features_1 = ['R','G']
-target_1 = '# Cyanide Concentration'
-
-X_1 = df[features_1]
-y_1 = df[target_1]
+if regression_model == "Linear_Regression":
+    print("\LINEAR REGRESSION")
+    r_sq, mse = linear_regression(X,y,data_dir)
+    R_2.append(r_sq)
+    MSE.append(mse)
 
 
-# print(X_1)
-# print(y_1)
+elif regression_model == "Multiple_Linear_Regression":
+    print("\MULTIPLE LINEAR REGRESSION")
+    r_sq, mse = multiple_linear_regression(X,y,data_dir)
+    R_2.append(r_sq)
+    MSE.append(mse)
 
-print("\nMULTIPLE LINEAR REGRESSION")
-r_sq, mse =multiple_linear_regression(X_1,y_1,data_dir)
-R_2.append(r_sq)
-MSE.append(mse)
-
-
-features_2 = ['R','B']
-target_2 = '# Cyanide Concentration'
-
-X_2 = df[features_2]
-y_2 = df[target_2]
+elif regression_model == "Multiple_Polynomial_Regression":
+    print("\MULTIPLE POLYNOMIAL REGRESSION")
+    r_sq, mse = multiple_polynomial_regression(X,y,data_dir)
+    R_2.append(r_sq)
+    MSE.append(mse)
 
 
-# print(X_2)
-# print(y_2)
 
-print("\nMULTIPLE LINEAR REGRESSION")
-r_sq, mse =multiple_linear_regression(X_2,y_2,data_dir)
-R_2.append(r_sq)
-MSE.append(mse)
-
-features_3 = ['B','G']
-target_3 = '# Cyanide Concentration'
-
-X_3 = df[features_3]
-y_3 = df[target_3]
-
-
-# print(X_3)
-# print(y_3)
-
-print("\nMULTIPLE LINEAR REGRESSION")
-r_sq, mse =multiple_linear_regression(X_3,y_3,data_dir)
-R_2.append(r_sq)
-MSE.append(mse)
-
-print("Coefficients of Determination: ",R_2)
-print("Mean Squared Errors: ", MSE)
+elif regression_model == "Polynomial_Regression":
+    print("\POLYNOMIAL REGRESSION")
+    r_sq, mse = polynomial_regression(X,y,data_dir)
+    R_2.append(r_sq)
+    MSE.append(mse)

@@ -11,24 +11,17 @@ import sys
 import argparse
 import math
 # Inked90ppmafter2min__LI
-##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python openfolders_multiple.py -fn new_sensor -id2 000 -rf1 ROI_newsensor -rf2 ROI2_newsensor -cif captured_images3 -cisf data_gathering_newsensor -fn newsensor_45min -nr 3
+##C:\Users\CYANanoBot\Desktop\CYANanoBot- Analyzer>python paper_sensor_detection_program.py -ps paper_sensor_name -id2 000 -cif captured_images3 -nr 3 -si True
 ###folder where in you save the ROI's
 
 ###ARGUMENT PARSER
 ap = argparse.ArgumentParser()
-ap.add_argument("-id2","--images_id", required=False,
-    help ="images id")
-ap.add_argument("-fn","--filename", required=False,
-    help ="filename")
-ap.add_argument("-rf1","--ROI_folder", required=False,
-    help ="filename of the ROI folder")
-ap.add_argument("-rf2", "--ROI2_folder",required=False,
-    help="filename of the ROI2 folder")
+
+ap.add_argument("-ps","--paper_sensor", required=False,
+    help ="paper sensor name")
 ap.add_argument("-cif", "--captured_images_folder", required=False,
     help="folder name of the images gathered")
-ap.add_argument("-cisf", "----captured_images_subfolder", required=False,
-    help="subfolder name of the images gathered")
-ap.add_argument("-si", "--show_image", required=False,type= bool,
+ap.add_argument("-si", "--show_image", required=False,
     help="show images")    
 ap.add_argument("-nr","--number_rows", required=False, default= 3,type=int,
     help ="number of rows")    
@@ -36,16 +29,16 @@ args = vars(ap.parse_args())
 print(args)
 
 ### save arguments to variables
-FILENAME_DIR = args['filename']
-ROI_DIR = args['ROI_folder']
-ROI2_DIR = args['ROI2_folder']
+FILENAME_DIR = args['paper_sensor']
+ROI_DIR = 'ROI'
+ROI2_DIR = 'ROI2'
 NUM_ROWS = args['number_rows']
 CAPTURED_IMAGES_DIR= args["captured_images_folder"] 
-CAPTURED_IMAGES_SUB_DIR= args["captured_images_subfolder"] 
+CAPTURED_IMAGES_SUB_DIR= args['paper_sensor']
 show_image = args["show_image"]
 DATA_DIR = "DATA"
 
-show_image = False
+# show_image = False
 ### LOCATE and INITIALIZE DIRECTORIES 
 
 CD = os.getcwd()
@@ -198,7 +191,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
         print("Number of circles detected:", co)     # print the number of circles detected
 
 
-        if show_image:
+        if show_image == "True":
         # plt.imshow(masked)
             fig = plt.figure(figsize=(10, 7))
             rows= 1

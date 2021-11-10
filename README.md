@@ -9,9 +9,9 @@ $ python image_acquisition_program.py -cn 100ppm -ps paper_sensor_name -i 30 -ci
 
 
 ### Run Paper Sensor Detection Program
-$ python paper_sensor_detection_program.py -id2 {000-30} -fn {paper_sensor_name_data} -ps {paper_sensor_name} -rf1 ROI_{paper_sensor_name} -rf2 ROI2_{paper_sensor_name}
--cif {captured_images_subfolder} -cisf {captured_images_subfolder} -nr {1-3}
-$ python paper_sensor_detection_program.py -id2 000 -fn newsensor_45min_data -rf1 ROI_newsensor_45min -rf2 ROI2_newsensor_45min -cif captured_images3 -cisf newsensor_45min -nr 1
+$ python paper_sensor_detection_program.py -id2 {000-30} -ps {paper_sensor_name} 
+-cif {captured_images_subfolder} -nr {1-3}
+$ python paper_sensor_detection_program.py -ps new_sensor -id2 000 -cif captured_images3 -nr 1 -si True
 
 
 -DATA

@@ -19,9 +19,9 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(420, 60, 310, 33))
+        self.label.setGeometry(QtCore.QRect(390, 50, 381, 51))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Arial")
         font.setPointSize(20)
         font.setBold(True)
         font.setWeight(75)
@@ -34,17 +34,41 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.iap_button = QtWidgets.QPushButton(self.groupBox)
         self.iap_button.setGeometry(QtCore.QRect(0, 30, 260, 80))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.iap_button.setFont(font)
         self.iap_button.setObjectName("iap_button")
         self.cep_button = QtWidgets.QPushButton(self.groupBox)
         self.cep_button.setEnabled(True)
         self.cep_button.setGeometry(QtCore.QRect(260, 30, 260, 80))
         self.cep_button.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.cep_button.setFont(font)
         self.cep_button.setObjectName("cep_button")
         self.rap_button = QtWidgets.QPushButton(self.groupBox)
         self.rap_button.setGeometry(QtCore.QRect(520, 30, 260, 80))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.rap_button.setFont(font)
         self.rap_button.setObjectName("rap_button")
         self.pdp_button = QtWidgets.QPushButton(self.groupBox)
         self.pdp_button.setGeometry(QtCore.QRect(780, 30, 260, 80))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pdp_button.setFont(font)
         self.pdp_button.setObjectName("pdp_button")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(110, 740, 131, 16))
@@ -53,10 +77,10 @@ class Ui_MainWindow(object):
         self.cmd_line_run.setGeometry(QtCore.QRect(110, 660, 931, 71))
         self.cmd_line_run.setObjectName("cmd_line_run")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(430, 240, 321, 341))
+        self.groupBox_2.setGeometry(QtCore.QRect(410, 230, 321, 341))
         self.groupBox_2.setObjectName("groupBox_2")
         self.formLayoutWidget = QtWidgets.QWidget(self.groupBox_2)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(10, 40, 301, 171))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(10, 40, 301, 178))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -79,24 +103,56 @@ class Ui_MainWindow(object):
         self.ia_exposure = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.ia_exposure.setObjectName("ia_exposure")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.ia_exposure)
-        self.label_6 = QtWidgets.QLabel(self.formLayoutWidget)
-        self.label_6.setObjectName("label_6")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.ia_resolution = QtWidgets.QLineEdit(self.formLayoutWidget)
-        self.ia_resolution.setObjectName("ia_resolution")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.ia_resolution)
-        self.label_7 = QtWidgets.QLabel(self.formLayoutWidget)
-        self.label_7.setObjectName("label_7")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_7)
-        self.ia_time_interval = QtWidgets.QLineEdit(self.formLayoutWidget)
-        self.ia_time_interval.setObjectName("ia_time_interval")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.ia_time_interval)
         self.label_8 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_8.setObjectName("label_8")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_8)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_8)
         self.ia_directory = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.ia_directory.setObjectName("ia_directory")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.ia_directory)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.ia_directory)
+        self.label_6 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_6.setObjectName("label_6")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_6)
+        self.ia_resolution_combo = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.ia_resolution_combo.setObjectName("ia_resolution_combo")
+        self.ia_resolution_combo.addItem("")
+        self.ia_resolution_combo.addItem("")
+        self.ia_resolution_combo.addItem("")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.ia_resolution_combo)
+        self.label_9 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_9.setObjectName("label_9")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_9)
+        self.label_7 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_7.setObjectName("label_7")
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_7)
+        self.ia_num_images_combo = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.ia_num_images_combo.setObjectName("ia_num_images_combo")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.ia_num_images_combo.addItem("")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.ia_num_images_combo)
+        self.ia_time_int_combo = QtWidgets.QComboBox(self.formLayoutWidget)
+        self.ia_time_int_combo.setObjectName("ia_time_int_combo")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.ia_time_int_combo.addItem("")
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.ia_time_int_combo)
         self.horizontalLayoutWidget_6 = QtWidgets.QWidget(self.groupBox_2)
         self.horizontalLayoutWidget_6.setGeometry(QtCore.QRect(10, 220, 301, 31))
         self.horizontalLayoutWidget_6.setObjectName("horizontalLayoutWidget_6")
@@ -110,13 +166,13 @@ class Ui_MainWindow(object):
         self.ia_apply_button.setObjectName("ia_apply_button")
         self.horizontalLayout_6.addWidget(self.ia_apply_button)
         self.ia_run_button = QtWidgets.QPushButton(self.groupBox_2)
-        self.ia_run_button.setGeometry(QtCore.QRect(90, 260, 141, 71))
+        self.ia_run_button.setGeometry(QtCore.QRect(100, 260, 141, 71))
         self.ia_run_button.setObjectName("ia_run_button")
         self.groupBox_4 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_4.setGeometry(QtCore.QRect(430, 240, 321, 241))
+        self.groupBox_4.setGeometry(QtCore.QRect(410, 230, 321, 241))
         self.groupBox_4.setObjectName("groupBox_4")
         self.formLayoutWidget_5 = QtWidgets.QWidget(self.groupBox_4)
-        self.formLayoutWidget_5.setGeometry(QtCore.QRect(10, 20, 301, 101))
+        self.formLayoutWidget_5.setGeometry(QtCore.QRect(10, 20, 301, 81))
         self.formLayoutWidget_5.setObjectName("formLayoutWidget_5")
         self.formLayout_5 = QtWidgets.QFormLayout(self.formLayoutWidget_5)
         self.formLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -130,15 +186,15 @@ class Ui_MainWindow(object):
         self.label_30 = QtWidgets.QLabel(self.formLayoutWidget_5)
         self.label_30.setObjectName("label_30")
         self.formLayout_5.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_30)
-        self.ce_id = QtWidgets.QLineEdit(self.formLayoutWidget_5)
-        self.ce_id.setObjectName("ce_id")
-        self.formLayout_5.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.ce_id)
         self.label_32 = QtWidgets.QLabel(self.formLayoutWidget_5)
         self.label_32.setObjectName("label_32")
         self.formLayout_5.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_32)
         self.ce_rf2 = QtWidgets.QLineEdit(self.formLayoutWidget_5)
         self.ce_rf2.setObjectName("ce_rf2")
         self.formLayout_5.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.ce_rf2)
+        self.ce_id = QtWidgets.QLineEdit(self.formLayoutWidget_5)
+        self.ce_id.setObjectName("ce_id")
+        self.formLayout_5.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.ce_id)
         self.ce_run_button = QtWidgets.QPushButton(self.groupBox_4)
         self.ce_run_button.setGeometry(QtCore.QRect(90, 160, 141, 71))
         self.ce_run_button.setObjectName("ce_run_button")
@@ -155,10 +211,10 @@ class Ui_MainWindow(object):
         self.ce_apply_button.setObjectName("ce_apply_button")
         self.horizontalLayout_3.addWidget(self.ce_apply_button)
         self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_3.setGeometry(QtCore.QRect(430, 240, 321, 361))
+        self.groupBox_3.setGeometry(QtCore.QRect(410, 230, 321, 281))
         self.groupBox_3.setObjectName("groupBox_3")
         self.formLayoutWidget_3 = QtWidgets.QWidget(self.groupBox_3)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(10, 40, 301, 191))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(10, 40, 301, 111))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -169,47 +225,29 @@ class Ui_MainWindow(object):
         self.pd_paper_sensor = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.pd_paper_sensor.setObjectName("pd_paper_sensor")
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.pd_paper_sensor)
-        self.label_16 = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.label_16.setObjectName("label_16")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_16)
-        self.pd_filename = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.pd_filename.setObjectName("pd_filename")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.pd_filename)
-        self.label_17 = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.label_17.setObjectName("label_17")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.pd_rf1 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.pd_rf1.setObjectName("pd_rf1")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.pd_rf1)
-        self.label_18 = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.label_18.setObjectName("label_18")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_18)
-        self.pd_rf2 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.pd_rf2.setObjectName("pd_rf2")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.pd_rf2)
         self.label_19 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_19.setObjectName("label_19")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_19)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_19)
         self.pd_directory = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.pd_directory.setObjectName("pd_directory")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.pd_directory)
-        self.label_20 = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.label_20.setObjectName("label_20")
-        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_20)
-        self.pd_subdirectory = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.pd_subdirectory.setObjectName("pd_subdirectory")
-        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.pd_subdirectory)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.pd_directory)
         self.label_21 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_21.setObjectName("label_21")
-        self.formLayout_3.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_21)
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_21)
         self.pd_num_rows = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.pd_num_rows.setObjectName("pd_num_rows")
-        self.formLayout_3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.pd_num_rows)
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.pd_num_rows)
+        self.pd_show_images_radButton = QtWidgets.QRadioButton(self.formLayoutWidget_3)
+        self.pd_show_images_radButton.setObjectName("pd_show_images_radButton")
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.pd_show_images_radButton)
+        self.label_10 = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.label_10.setObjectName("label_10")
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_10)
         self.pd_run_button = QtWidgets.QPushButton(self.groupBox_3)
-        self.pd_run_button.setGeometry(QtCore.QRect(90, 280, 141, 71))
+        self.pd_run_button.setGeometry(QtCore.QRect(90, 200, 141, 71))
         self.pd_run_button.setObjectName("pd_run_button")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.groupBox_3)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 240, 301, 31))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 160, 301, 31))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -222,10 +260,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.pd_apply_button)
         self.groupBox_5 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_5.setEnabled(True)
-        self.groupBox_5.setGeometry(QtCore.QRect(430, 240, 321, 321))
+        self.groupBox_5.setGeometry(QtCore.QRect(410, 230, 321, 411))
         self.groupBox_5.setObjectName("groupBox_5")
         self.formLayoutWidget_7 = QtWidgets.QWidget(self.groupBox_5)
-        self.formLayoutWidget_7.setGeometry(QtCore.QRect(10, 20, 301, 61))
+        self.formLayoutWidget_7.setGeometry(QtCore.QRect(10, 20, 301, 111))
         self.formLayoutWidget_7.setObjectName("formLayoutWidget_7")
         self.formLayout_7 = QtWidgets.QFormLayout(self.formLayoutWidget_7)
         self.formLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -242,11 +280,35 @@ class Ui_MainWindow(object):
         self.ra_id = QtWidgets.QLineEdit(self.formLayoutWidget_7)
         self.ra_id.setObjectName("ra_id")
         self.formLayout_7.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.ra_id)
+        self.ra_features = QtWidgets.QComboBox(self.formLayoutWidget_7)
+        self.ra_features.setEditable(True)
+        self.ra_features.setObjectName("ra_features")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.ra_features.addItem("")
+        self.formLayout_7.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.ra_features)
+        self.label_11 = QtWidgets.QLabel(self.formLayoutWidget_7)
+        self.label_11.setObjectName("label_11")
+        self.formLayout_7.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_11)
         self.ra_run_button = QtWidgets.QPushButton(self.groupBox_5)
-        self.ra_run_button.setGeometry(QtCore.QRect(100, 250, 141, 71))
+        self.ra_run_button.setGeometry(QtCore.QRect(100, 330, 141, 71))
         self.ra_run_button.setObjectName("ra_run_button")
         self.horizontalLayoutWidget_5 = QtWidgets.QWidget(self.groupBox_5)
-        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(10, 210, 301, 31))
+        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(10, 290, 301, 31))
         self.horizontalLayoutWidget_5.setObjectName("horizontalLayoutWidget_5")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -258,7 +320,7 @@ class Ui_MainWindow(object):
         self.ra_apply_button.setObjectName("ra_apply_button")
         self.horizontalLayout_5.addWidget(self.ra_apply_button)
         self.verticalLayoutWidget = QtWidgets.QWidget(self.groupBox_5)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 90, 301, 91))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 140, 301, 111))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -287,10 +349,13 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
         self.pd_apply_button.clicked.connect(self.roi_extraction)
         self.ce_apply_button.clicked.connect(self.color_extraction)
         self.ra_apply_button.clicked.connect(self.regression_analysis)
         self.ra_apply_button.clicked.connect(self.regression_analysis)
+
+        
 
         self.ra_clear_all_button.clicked.connect(self.clear_fields_ra)
         self.ce_clear_all_button.clicked.connect(self.clear_fields_ce)
@@ -310,10 +375,7 @@ class Ui_MainWindow(object):
 
         self.ce_run_button.clicked.connect(self.run_cep)
         self.pd_run_button.clicked.connect(self.run_pdp)
-
-
-
-
+        self.ra_run_button.clicked.connect(self.run_rap)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -330,9 +392,38 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Name of Paper Sensor "))
         self.label_4.setText(_translate("MainWindow", "Cyanide Concentration"))
         self.label_5.setText(_translate("MainWindow", "Exposure"))
-        self.label_6.setText(_translate("MainWindow", "Resolution"))
-        self.label_7.setText(_translate("MainWindow", "Time Interval"))
         self.label_8.setText(_translate("MainWindow", "Directory"))
+        self.label_6.setText(_translate("MainWindow", "Resolution"))
+        self.ia_resolution_combo.setItemText(0, _translate("MainWindow", "High Resolution (2592, 1952)"))
+        self.ia_resolution_combo.setItemText(1, _translate("MainWindow", "Medium Resolution (1024, 768)"))
+        self.ia_resolution_combo.setItemText(2, _translate("MainWindow", "Low Resolution (640,480)"))
+        self.label_9.setText(_translate("MainWindow", "Number of Images"))
+        self.label_7.setText(_translate("MainWindow", "Time Interval (sec)"))
+        self.ia_num_images_combo.setCurrentText(_translate("MainWindow", "30"))
+        self.ia_num_images_combo.setItemText(0, _translate("MainWindow", "5"))
+        self.ia_num_images_combo.setItemText(1, _translate("MainWindow", "10"))
+        self.ia_num_images_combo.setItemText(2, _translate("MainWindow", "20"))
+        self.ia_num_images_combo.setItemText(3, _translate("MainWindow", "30"))
+        self.ia_num_images_combo.setItemText(4, _translate("MainWindow", "40"))
+        self.ia_num_images_combo.setItemText(5, _translate("MainWindow", "50"))
+        self.ia_num_images_combo.setItemText(6, _translate("MainWindow", "60"))
+        self.ia_num_images_combo.setItemText(7, _translate("MainWindow", "70"))
+        self.ia_num_images_combo.setItemText(8, _translate("MainWindow", "80"))
+        self.ia_num_images_combo.setItemText(9, _translate("MainWindow", "90"))
+        self.ia_num_images_combo.setItemText(10, _translate("MainWindow", "100"))
+        self.ia_time_int_combo.setCurrentText(_translate("MainWindow", "30"))
+        self.ia_time_int_combo.setItemText(0, _translate("MainWindow", "5"))
+        self.ia_time_int_combo.setItemText(1, _translate("MainWindow", "10"))
+        self.ia_time_int_combo.setItemText(2, _translate("MainWindow", "15"))
+        self.ia_time_int_combo.setItemText(3, _translate("MainWindow", "20"))
+        self.ia_time_int_combo.setItemText(4, _translate("MainWindow", "25"))
+        self.ia_time_int_combo.setItemText(5, _translate("MainWindow", "30"))
+        self.ia_time_int_combo.setItemText(6, _translate("MainWindow", "35"))
+        self.ia_time_int_combo.setItemText(7, _translate("MainWindow", "40"))
+        self.ia_time_int_combo.setItemText(8, _translate("MainWindow", "45"))
+        self.ia_time_int_combo.setItemText(9, _translate("MainWindow", "50"))
+        self.ia_time_int_combo.setItemText(10, _translate("MainWindow", "55"))
+        self.ia_time_int_combo.setItemText(11, _translate("MainWindow", "60"))
         self.ia_clear_all_button.setText(_translate("MainWindow", "Clear All"))
         self.ia_apply_button.setText(_translate("MainWindow", "Apply"))
         self.ia_run_button.setText(_translate("MainWindow", "Run Program"))
@@ -345,18 +436,34 @@ class Ui_MainWindow(object):
         self.ce_apply_button.setText(_translate("MainWindow", "Apply"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Paper Detection Program Parameters"))
         self.label_15.setText(_translate("MainWindow", "Name of Paper Sensor "))
-        self.label_16.setText(_translate("MainWindow", "Filename"))
-        self.label_17.setText(_translate("MainWindow", "ROI 1"))
-        self.label_18.setText(_translate("MainWindow", "ROI 2"))
         self.label_19.setText(_translate("MainWindow", "Directory"))
-        self.label_20.setText(_translate("MainWindow", "SubDirectory"))
         self.label_21.setText(_translate("MainWindow", "Number of Rows"))
+        self.pd_show_images_radButton.setText(_translate("MainWindow", "Show"))
+        self.label_10.setText(_translate("MainWindow", "Show Images"))
         self.pd_run_button.setText(_translate("MainWindow", "Run Program"))
         self.pd_clear_all_button.setText(_translate("MainWindow", "Clear All"))
         self.pd_apply_button.setText(_translate("MainWindow", "Apply"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Regression Analysis Program Parameters"))
         self.label_35.setText(_translate("MainWindow", "Name of Paper Sensor "))
         self.label_36.setText(_translate("MainWindow", "images id"))
+        self.ra_features.setItemText(0, _translate("MainWindow", "\'R\'"))
+        self.ra_features.setItemText(1, _translate("MainWindow", "New Item"))
+        self.ra_features.setItemText(2, _translate("MainWindow", "\'G\'"))
+        self.ra_features.setItemText(3, _translate("MainWindow", "\'B\'"))
+        self.ra_features.setItemText(4, _translate("MainWindow", "\'R\',\'G\',\'B\'"))
+        self.ra_features.setItemText(5, _translate("MainWindow", "\'H\'"))
+        self.ra_features.setItemText(6, _translate("MainWindow", "\'S\'"))
+        self.ra_features.setItemText(7, _translate("MainWindow", "\'V\'"))
+        self.ra_features.setItemText(8, _translate("MainWindow", "\'H\',\'S\',\'V\'"))
+        self.ra_features.setItemText(9, _translate("MainWindow", "\'L\'"))
+        self.ra_features.setItemText(10, _translate("MainWindow", "\'a\'"))
+        self.ra_features.setItemText(11, _translate("MainWindow", "\'b\'"))
+        self.ra_features.setItemText(12, _translate("MainWindow", "\'L\',\'a\',\'b\'"))
+        self.ra_features.setItemText(13, _translate("MainWindow", "\'Gray\'"))
+        self.ra_features.setItemText(14, _translate("MainWindow", "\'R\',\'G\',\'B\',\'H\',\'S\',\'V\'"))
+        self.ra_features.setItemText(15, _translate("MainWindow", "\'R\',\'G\',\'B\',\'H\',\'S\',\'V\',\'L\'.\'a\'.\'b\'"))
+        self.ra_features.setItemText(16, _translate("MainWindow", "\'R\',\'G\',\'B\',\'H\',\'S\',\'V\',\'L\'.\'a\'.\'b\',\'Gray\'"))
+        self.label_11.setText(_translate("MainWindow", "Features"))
         self.ra_run_button.setText(_translate("MainWindow", "Run Program"))
         self.ra_clear_all_button.setText(_translate("MainWindow", "Clear All"))
         self.ra_apply_button.setText(_translate("MainWindow", "Apply"))
@@ -429,22 +536,20 @@ class Ui_MainWindow(object):
         self.cmd_line_run.clear()
         print("Paper sensor detection and cropping program")
 
+        if self.pd_show_images_radButton.isChecked:
+            show_image = "True"
+        else:
+            show_image = " "    
         pd_cmd_list = ['python',
                     'paper_sensor_detection_program.py',
-                    '-fn',
-                    self.pd_filename.text(),
                     '-ps',
                     self.pd_paper_sensor.text(),
-                    '-rf1',
-                    self.pd_rf1.text(),
-                    '-rf2',
-                    self.pd_rf2.text(),
                     '-cif',
                     self.pd_directory.text(),
-                    '-cisf',
-                    self.pd_subdirectory.text(),
                     '-nr',
-                    self.pd_num_rows.text()]
+                    self.pd_num_rows.text(),
+                    '-si',
+                    show_image]
         print(pd_cmd_list)
         pd_cmd_str = ' '.join(pd_cmd_list)
         print(pd_cmd_str)
@@ -493,12 +598,10 @@ class Ui_MainWindow(object):
 
         ce_cmd_list = ['python',
                     'color_extraction_program.py',
-                    '-fn',
+                    '-ps',
                     self.ce_paper_sensor.text(),
                     '-id2',
-                    self.ce_id.text(),
-                    '-rf2',
-                    self.ce_rf2.text()
+                    self.ce_id.text()
                     ]
         print(ce_cmd_list)
         ce_cmd_str = ' '.join(ce_cmd_list)
@@ -513,14 +616,35 @@ class Ui_MainWindow(object):
 
     def regression_analysis(self):
         self.cmd_line_run.clear()
-        print("Regression Analysis Program")
+        feature = self.ra_features.currentText()
+        self.ra_features.set
+        print(feature)
 
+        if self.ra_lr_checkBox.isChecked():
+            regression_model= "Linear Regression"
+        
+        elif self.ra_mlr_checkBox.isChecked():
+            regression_model= "Multiple Linear Regression"
+
+        elif self.ra_pr_checkBox.isChecked():
+            regression_model= "Polynomial Regression"
+
+        elif self.ra_mpr_checkBox.isChecked():
+            regression_model= "Multiple Polynomial Regression"
+
+
+        print("Regression Analysis Program")
+        
         ra_cmd_list = ['python',
                     'create_regression_model.py',
                     '-fn',
                     self.ra_paper_sensor.text(),
                     '-id2',
                     self.ra_id.text(),
+                    '-fr',
+                    feature,
+                    '-rm',
+                    regression_model
                     ]
         print(ra_cmd_list)
         ra_cmd_str = ' '.join(ra_cmd_list)
@@ -560,6 +684,8 @@ class Ui_MainWindow(object):
         # print(cmd_line)
         print(rap_cmd_list1)
         subprocess.run(rap_cmd_list1)
+
+
 
 if __name__ == "__main__":
     import sys

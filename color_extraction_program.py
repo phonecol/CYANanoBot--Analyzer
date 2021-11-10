@@ -9,25 +9,23 @@ from imutils import build_montages
 from operator import itemgetter
 import time
 import argparse
-# from openfolders_multiple import FILENAME_DIRECTORY
+
 import plot_cn as pC
 
 # from openfolders_multiple import ROI_folder
-# python color_extraction.py -id2 000 -rf2 ROI2_newsensor_45min
+# python color_extraction.py -id2 000 -rf2 ROI2_newsensor_45min -ps paper_sensor_name
 ap = argparse.ArgumentParser()
 ap.add_argument("-id2","--images_id", required=False,
     help ="images id")
-ap.add_argument("-fn", "--filename",required=False,
+ap.add_argument("-ps", "--paper_sensor",required=False,
     help="filename of the paper sensor folder")
-ap.add_argument("-rf2", "--ROI2_folder",required=False,
-    help="filename of the ROI2 folder")
 
 args = vars(ap.parse_args())
 print(args)
 
-FILENAME_DIR = args['filename']
+FILENAME_DIR = args['paper_sensor']
 images_id_no = args['images_id']
-ROI2_folder= args['ROI2_folder']
+ROI2_folder= 'ROI2'
 fnamee =  ROI2_folder
 DATA_DIR = "DATA"
 
@@ -138,12 +136,12 @@ def get_images_from_a_folder(path, coord_no):
         cn_Concentration = cn_Concentration[:-3]
 
         #append the images, cyanide concentrations, and coordinates
-        if coord == coord_no:
-            images.append(image)
-            ppm_values.append(cn_Concentration)
-            combined.append((image, cn_Concentration))
-            cn_Concentrations.append(cn_Concentration)
-            coords.append(coord)
+        # if coord == coord_no:
+        images.append(image)
+        ppm_values.append(cn_Concentration)
+        combined.append((image, cn_Concentration))
+        cn_Concentrations.append(cn_Concentration)
+        coords.append(coord)
 
     return images, ppm_values, cn_Concentrations, coords
 
