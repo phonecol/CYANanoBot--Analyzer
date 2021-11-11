@@ -92,8 +92,6 @@ if not os.path.exists(histograms_path):
     os.mkdir(histograms_path)
 
 coord_no = "8"
-# if not os.path.exists(color_data_folder):
-#     os.mkdir(color_data_folder)
 
 
 
@@ -147,21 +145,16 @@ def get_images_from_a_folder(path, coord_no):
 
 #function for saving the data
 def save_data(data,image_number,data_path, timestr,fname):
-    # print("data",data)
-    
     data = data.T ##transpose the data array##
-    # print("data",data)
     sorted_data = natsorted(data,key=itemgetter(0))##sort the data by their coordinates##
-    # print("data",sorted_data)
     header = 'Cyanide Concentration,coordinate,R,G,B,R_std,G_std,B_std,H,S,V,H_std,S_std,V_std,L,a,b,L_std,a_std,b_std,Gray,Gray_std' #initialize the header for the csv file
     filename_Data =data_path+"\\"+image_number+fname + timestr+".csv" ##initialize the filename of the data
     filename_Sorted_Data =data_path+"\\"+image_number+fname + timestr+"x.csv"  ##initialize the filename of the sorted data
     data = np.array(data)## convert the data and sorted data into numpy arrays
     sorted_data = np.array(sorted_data)## convert the data and sorted data into numpy arrays
-    # print(sorted_data)
     np.savetxt(filename_Data, data, delimiter=",",header= header,fmt='%s') #save the data array in a csv filetype with a filename of "data.csv" with the following header defined above
     np.savetxt(filename_Sorted_Data, sorted_data, delimiter=",",header= header,fmt='%s') #save the data array in a csv filetype with a filename of "data.csv" with the following header defined above
-
+    print("ColorData has been saved")
     return  data, sorted_data
 
 
@@ -170,7 +163,6 @@ def main():
     #for KMeans Algorithm
     clusters = 3 #number of clusters of colors. Value is at the range of (2-5)
     index = 1
-
     coords = []
     cn_Concentrations = []
     RGB_KMeans = []
@@ -183,25 +175,17 @@ def main():
     Gray_Means = []
     Gray_stds = []
     colorspaces = []
-
-
-    # _,_,_,image_number = IMAGE_DIRECTORY.split("\\")
     tail = os.path.split(IMAGE_PATH)
     image_number = tail[1]
     images , ppm_values, cn_Concentrations, coords = get_images_from_a_folder(IMAGE_PATH, coord_no)
-
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
     print(timestr)
-
-
-
     # print(len(images))
 
     for i in range(len(images)):
 
         dc = DominantColors(images[i],images,clusters) #initialize the DominantColors class
         dc.saveHistogram(histograms_path+"\\{}Histogram".format(i), False) #set to false para dili i show ang histogram plot
-
         rgb_kmeans = dc.dominantColors()  #call the dominantColors function to get the dominant colors of the image using KMeans Algorithm
         rgb_kmeans = rgb_kmeans.flatten()
         print("Dominant Colors: ",rgb_kmeans)
@@ -210,7 +194,6 @@ def main():
         # dc.plotHistogram()
         # dc.colorPixels()
         rgb_mean,rgb_std,hsv_mean,hsv_std,lab_mean,lab_std, gray_mean, gray_std = dc.getMeanIntensity()  #call the getMeanIntensity function to get the average RGB pixel intensity and its standard deviation of the paper sensor
-
         #append the RGB, HSV,Lab, Gray Values into a list
         RGB_KMeans.append(rgb_kmeans)
         RGB_Means.append(rgb_mean)
@@ -223,7 +206,7 @@ def main():
         Gray_stds.append(gray_std)
         colorspaces.append(( rgb_mean, rgb_std, hsv_mean, hsv_std, lab_mean, lab_std,gray_mean,gray_std))
 
-    print("colorspaces", colorspaces)
+    # print("colorspaces", colorspaces)
     # dc.plotMultipleHistogram(0)
     # dc.plotMultipleHistogram(1)
     # dc.plotMultipleHistogram(2)
@@ -267,7 +250,6 @@ def main():
     data2 = np.vstack((cn_Concentrations,coords, COLORSPACES_str))
     #save the data into a csv file.
     data, sorted_data = save_data(data, image_number,data_path, timestr, fnamee)
-    # data2, sorted_data2 = save_data(data2, image_number, timestr,'2')
     pC.plotRGB(sorted_data, cn_Concentrations_str,data_path)
     pC.scatter_plotRGB(sorted_data, cn_Concentrations_str,data_path)
     pC.scatter_plotHSV(sorted_data, cn_Concentrations_str,data_path)

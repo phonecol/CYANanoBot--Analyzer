@@ -76,6 +76,8 @@ CD = os.getcwd()
 print(CD)
 backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
 print(backCD)
+
+
 DATA_PATH = os.path.join(backCD,DATA_DIR)
 print(DATA_PATH)
 CAPTURED_IMAGES_PATH = os.path.join(DATA_PATH,CAPTURED_IMAGES_DIR)
@@ -105,7 +107,7 @@ if not os.path.exists(IMG_PATH):
 
 
 
-
+### Function for taking an image
 
 def take_img(i,fill,IMG_PATH,display= False , save_img = False ):
 
@@ -128,6 +130,7 @@ def take_img(i,fill,IMG_PATH,display= False , save_img = False ):
     # camera.stop_preview()
     return img 
 
+### Function for taking multiple images automatically
 
 def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = False, prev= False):
     if prev: 
@@ -165,7 +168,7 @@ if __name__ == '__main__':
         input("Press ENTER to start the image acquisition")
     except SyntaxError:
         pass
-    img = take_img(0,3,IMG_PATH,True, True)
+    img = take_img(0,3,IMG_PATH,display=False, save_img = True)
     camera.stop_preview()
 
     sleep(3)
@@ -174,6 +177,11 @@ if __name__ == '__main__':
         input("Press ENTER to start the image acquisition")
     except SyntaxError:
         pass
-    take_multi_img(img_num,interval,IMG_PATH, False,True,True)
 
+    camera.start_preview()
+    take_multi_img(img_num,interval,IMG_PATH, False,True,False)
+    camera.stop_preview()
+    camera.close()
     print("Done")
+
+
