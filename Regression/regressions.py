@@ -29,12 +29,14 @@ def linear_regression(x,y,filename_path):
     print('actual response:', y_test, sep='\n')
 
     #calculate mean squared error 
-    mse = mean_squared_error(y_test, y_pred)
+    mse = mean_squared_error(y_test, y_pred, squared=False)
     print("Mean Squared Error: ",mse)
 
     #save model
-    filename = filename_path+'\\linear_finalized_model.sav'
+    filename = filename_path+'\\linear_finalized_model_'+ str(mse)+'.sav'
     pickle.dump(model, open(filename, 'wb'))
+
+    return r_sq,mse
  
 # some time later...
  
@@ -66,7 +68,7 @@ def multiple_linear_regression(x,y,filename_path):
     print("Mean Squared Error: ",mse)
 
     #save model
-    filename = filename_path+'\\multiple_linear_finalized_model.sav'
+    filename = filename_path+'\\multiple_linear_finalized_model_'+ str(mse)+'.sav'
     pickle.dump(model, open(filename, 'wb'))
     
     return r_sq,mse
@@ -106,13 +108,15 @@ def polynomial_regression(x,y,filename_path):
     print('actual response:', y_test, sep='\n')
 
     #calculate mean squared error 
-    mse = mean_squared_error(y_test, y_pred)
+    mse = mean_squared_error(y_test, y_pred, squared=False)
     print("Mean Squared Error: ",mse)
 
     #save model
-    filename = filename_path+'\\polynomial_finalized_model.sav'
+    filename = filename_path+'\\polynomial_finalized_model_'+ str(mse)+'.sav'
     pickle.dump(model, open(filename, 'wb'))
     # return x_
+
+    return r_sq,mse
  
 def multiple_polynomial_regression(x,y,filename_path):
     # Step 2b: Transform input data
@@ -143,13 +147,16 @@ def multiple_polynomial_regression(x,y,filename_path):
     print('actual response:', y_test, sep='\n')
     
     #calculate mean squared error 
-    mse = mean_squared_error(y_test, y_pred)
+    mse = mean_squared_error(y_test, y_pred, squared=False)
     print("Mean Squared Error: ",mse)
 
     #save model
     
-    filename = filename_path+'\\multiple_polynomial_finalized_model.sav'
+    filename = filename_path+'\\multiple_polynomial_finalized_model_'+ str(mse)+'.sav'
     pickle.dump(model, open(filename, 'wb'))
+
+
+    return r_sq,mse
     
     # return x_
 

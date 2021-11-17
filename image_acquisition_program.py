@@ -112,7 +112,7 @@ if not os.path.exists(IMG_PATH):
 def take_img(i,fill,IMG_PATH,display= False , save_img = False ):
 
     ###Capturing to an OpenCV object
-    # camera.start_preview()
+    # camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
     
     now_2 = dt.datetime.now()
     timestamp_2 =  now_2.strftime("%S")
@@ -134,7 +134,7 @@ def take_img(i,fill,IMG_PATH,display= False , save_img = False ):
 
 def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = False, prev= False):
     if prev: 
-        camera.start_preview()
+        camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
     i = 0
     images = []
     img_1 = take_img(i,3,IMG_PATH,True, True)
@@ -162,7 +162,7 @@ def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = 
 
 
 if __name__ == '__main__':
-    camera.start_preview()
+    camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
     camera.annotate_text = "Press ENTER to start the image acquisition for the 1st image or CTRL-D to Quit"
     try:
         input("Press ENTER to start the image acquisition")
@@ -174,11 +174,13 @@ if __name__ == '__main__':
     sleep(3)
 
     try:
-        input("Press ENTER to start the image acquisition")
+        message = input("Press ENTER to start the image acquisition")
     except SyntaxError:
         pass
 
-    camera.start_preview()
+    print(message)
+
+    camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
     take_multi_img(img_num,interval,IMG_PATH, False,True,False)
     camera.stop_preview()
     camera.close()

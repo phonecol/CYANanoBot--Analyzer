@@ -161,6 +161,10 @@ def save_data(data,image_number,data_path, timestr,fname):
 
 def main():
     #for KMeans Algorithm
+    # try:
+    #     input("Press ENTER to start the image acquisition")
+    # except SyntaxError:
+    #     pass
     clusters = 3 #number of clusters of colors. Value is at the range of (2-5)
     index = 1
     coords = []

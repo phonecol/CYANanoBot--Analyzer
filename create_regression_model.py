@@ -75,8 +75,14 @@ csv_path = os.path.join(data_dir,csv[-1])
 df = pd.read_csv(csv_path)
 print(df.head())
 
+try:
+    input("Press ENTER to start the image acquisition")
+except SyntaxError:
+    pass
 
-features = [feature]
+features = list(feature) #split the feature into characters
+print(feature)
+print(features)
 target = '# Cyanide Concentration'
 
 X = df[features]
