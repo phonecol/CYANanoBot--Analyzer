@@ -58,7 +58,7 @@ sleep(3)
 ##################IMAGES.PNG
 
 
-FILENAME = args['filename']
+# FILENAME = args['filename']
 concentration = args ['concentration']
 interval = args['interval']
 img_num = args['images']
@@ -83,7 +83,7 @@ print(DATA_PATH)
 CAPTURED_IMAGES_PATH = os.path.join(DATA_PATH,CAPTURED_IMAGES_DIR)
 PAPER_SENSOR_PATH = os.path.join(CAPTURED_IMAGES_PATH, PAPER_SENSOR_DIR)
 CN_CONCENTRATION_PATH = os.path.join(PAPER_SENSOR_PATH,CN_CONCENTRATION_DIR)
-IMG_PATH = os.path.join(CN_CONCENTRATION_DIR,TIME_DIR,'')
+IMG_PATH = os.path.join(CN_CONCENTRATION_PATH,TIME_DIR,'')
 
 
 if not os.path.exists(DATA_PATH):
@@ -118,6 +118,7 @@ def take_img(i,fill,IMG_PATH,display= False , save_img = False ):
     timestamp_2 =  now_2.strftime("%S")
     IMG_PATH =  IMG_PATH +str(i).zfill(fill) +','+ args["concentration"]+','+str(timestamp_2)+','+str(i*30)+',seconds.png'
     img = np.empty((1952*2592*3), dtype=np.uint8)
+    camera.capture(img, format='bgr')
     img = img.reshape((1952,2592,3))
 
     if display:
@@ -137,7 +138,7 @@ def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = 
         camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
     i = 0
     images = []
-    img_1 = take_img(i,3,IMG_PATH,True, True)
+    img_1 = take_img(i,3,IMG_PATH,display, save_img)
     images.append(img_1)
     start = dt.datetime.now()
     total_time = img_num * time_interval
@@ -149,7 +150,7 @@ def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = 
         if(dt.datetime.now()-previous_time).seconds >= interval:
             previous_time = dt.datetime.now()
             print("okay")
-            img = take_img(i,2,IMG_PATH,True, True)
+            img = take_img(i,2,IMG_PATH,display, save_img)
             i += 1
             images.append(img)
     
@@ -174,14 +175,12 @@ if __name__ == '__main__':
     sleep(3)
 
     try:
-        message = input("Press ENTER to start the image acquisition")
+        input("Press ENTER to start the image acquisition")
     except SyntaxError:
         pass
 
-    print(message)
-
     camera.start_preview(fullscreen=False, window = (100, 20, 640, 480))
-    take_multi_img(img_num,interval,IMG_PATH, False,True,False)
+    take_multi_img(img_num,interval,IMG_PATH, display = False,save_img =True,prev =False)
     camera.stop_preview()
     camera.close()
     print("Done")
