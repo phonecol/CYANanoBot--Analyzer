@@ -76,9 +76,12 @@ if not os.path.exists(ROI2_PATH):
 
 
 #initialize the list of images, and its filenames
-image_nos =  ["000","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","29","30"]
+image_no =  ["0000","000","01","02","03","04","05","06","07","08","09"]
 ##########################################################################################################################
+print(image_no)
+image_nos = image_no + list(map(str, range(88 + 1)))
 
+print(image_nos)
 
 #function for getting the image
 def get_image(image_path):
@@ -121,7 +124,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             minDist=500, 
             param1=40, 
             param2=23,
-            minRadius=65, #the minimum radius of the paper sensor is 40 pixel
+            minRadius=55, #the minimum radius of the paper sensor is 40 pixel
             maxRadius=78  #the maximum radius of the paper sensor is 60 pixel
         )
     
