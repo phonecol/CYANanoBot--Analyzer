@@ -259,6 +259,9 @@ def main():
     pC.scatter_plotHSV(sorted_data, cn_Concentrations_str,data_path)
     pC.scatter_plotLAB(sorted_data, cn_Concentrations_str,data_path)
     pC.scatter_plotGRAY(sorted_data, cn_Concentrations_str,data_path)
+    pC.scatter_plotR(sorted_data, cn_Concentrations_str,data_path)
+    pC.scatter_plotG(sorted_data, cn_Concentrations_str,data_path)
+    pC.scatter_plotB(sorted_data, cn_Concentrations_str,data_path)
     # print(colorspaces)
     print("lezgo")
 

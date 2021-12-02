@@ -145,6 +145,7 @@ def take_multi_img(img_num, time_interval,IMG_PATH, display = False, save_img = 
     interval = time_interval
     previous_time = dt.datetime.now()
     img = np.empty((1952* 2592* 3), dtype=np.uint8)
+    i += 1
     while (dt.datetime.now()- start).seconds < total_time:
 
         if(dt.datetime.now()-previous_time).seconds >= interval:
@@ -169,7 +170,7 @@ if __name__ == '__main__':
         input("Press ENTER to start the image acquisition")
     except SyntaxError:
         pass
-    img = take_img(0,3,IMG_PATH,display=False, save_img = True)
+    img = take_img(0,4,IMG_PATH,display=False, save_img = True)
     camera.stop_preview()
 
     sleep(3)

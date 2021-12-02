@@ -75,6 +75,14 @@ csv_path = os.path.join(data_dir,csv[-1])
 df = pd.read_csv(csv_path)
 print(df.head())
 
+data = df.groupby(['# Cyanide Concentration']).mean()
+print(data.head())
+csv_path2 = os.path.join(data_dir,'averaged.csv')
+data.to_csv(csv_path2,index=True)
+print('Okay')
+df2 = pd.read_csv(csv_path2)
+print(df2.head)
+
 try:
     input("Press ENTER to start the image acquisition")
 except SyntaxError:
@@ -85,8 +93,8 @@ print(feature)
 print(features)
 target = '# Cyanide Concentration'
 
-X = df[features]
-y = df[target]
+X = df2[features]
+y = df2[target]
 
 
 # print(X)
@@ -117,3 +125,11 @@ elif regression_model == "Polynomial_Regression":
     r_sq, mse = polynomial_regression(X,y,data_dir)
     R_2.append(r_sq)
     MSE.append(mse)
+
+# data = df.groupby(['# Cyanide Concentration']).mean()
+# print(data.head())
+# csv_path2 = os.path.join(data_dir,'averaged.csv')
+# data.to_csv(csv_path2,index=True)
+# print('Okay')
+# df2 = pd.read_csv(csv_path2)
+# print(df2.head)

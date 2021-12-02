@@ -7,7 +7,7 @@ import regressions
 from sklearn.metrics import mean_squared_error
 
 
-df = pd.read_csv("20ROI2_45min2021_10_18-10_54_07x.csv")
+df = pd.read_csv("file4.csv")
 # print(color_data)
 print(df.head())
 
@@ -22,7 +22,7 @@ X_test = [X_test]
 print(X)
 print(y)
 
-# print("\nMULTIPLE LINEAR REGRESSION")
+print("\nMULTIPLE LINEAR REGRESSION")
 # regressions.multiple_linear_regression(X,y)
 
 # print("\nMULTIPLE POLYNOMIAL REGRESSION")

@@ -270,3 +270,78 @@ def scatter_plotGRAY(sorted_data, ppm_values_str,data_path):
     # plt.show()
     fig_gray.savefig(data_path+'/GRAYPLOT1.png')
     print("Saved Plot")
+
+
+
+
+def scatter_plotR(sorted_data, ppm_values_str,data_path):
+    fig_r = plt.figure()
+    axes_r = fig_r.add_subplot(111)
+
+    #plot the RGB_Mean Intensity of the paper sensor that was taken
+    axes_r.scatter(sorted_data[:,0].astype(float),sorted_data[:,2].astype(float),color='red', marker='x', label = "Red")
+       # for a,b in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,2].astype(float).astype(int)): 
+    #     plt.text(a+1, b+1, str(b))
+    
+    # for aa,bb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,3].astype(float).astype(int)): 
+    #     plt.text(aa + 1, bb+1, str(bb))
+
+    # for aaa,bbb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,4].astype(float).astype(int)): 
+    #     plt.text(aaa+1, bbb+1, str(bbb))
+    axes_r.set_ylabel('Mean Pixel Intensity')
+    axes_r.set_xlabel('Cyanide Concentration (PPM)')
+    axes_r.set_title("Red-Channel")
+    axes_r.set_xlim(-20, 120)
+    axes_r.set_ylim(0, 270)
+    axes_r.legend()
+    # plt.show()
+    fig_r.savefig(data_path+'/RPLOT1.png')
+    print("Saved Plot")
+
+def scatter_plotG(sorted_data, ppm_values_str,data_path):
+    fig_g = plt.figure()
+    axes_g = fig_g.add_subplot(111)
+
+    #plot the RGB_Mean Intensity of the paper sensor that was taken
+    axes_g.scatter(sorted_data[:,0].astype(float),sorted_data[:,3].astype(float),color='green', marker='x', label = 'Green')
+    # for a,b in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,2].astype(float).astype(int)): 
+    #     plt.text(a+1, b+1, str(b))
+    
+    # for aa,bb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,3].astype(float).astype(int)): 
+    #     plt.text(aa + 1, bb+1, str(bb))
+
+    # for aaa,bbb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,4].astype(float).astype(int)): 
+    #     plt.text(aaa+1, bbb+1, str(bbb))
+    axes_g.set_ylabel('Mean Pixel Intensity')
+    axes_g.set_xlabel('Cyanide Concentration (PPM)')
+    axes_g.set_title("Green-Channel")
+    axes_g.set_xlim(-20, 120)
+    axes_g.set_ylim(0, 270)
+    axes_g.legend()
+    # plt.show()
+    fig_g.savefig(data_path+'/GPLOT1.png')
+    print("Saved Plot")
+
+def scatter_plotB(sorted_data, ppm_values_str,data_path):
+    fig_b = plt.figure()
+    axes_b = fig_b.add_subplot(111)
+
+    #plot the RGB_Mean Intensity of the paper sensor that was taken
+    axes_b.scatter(sorted_data[:,0].astype(float),sorted_data[:,4].astype(float),color='blue', marker='x', label= 'Blue')
+    # for a,b in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,2].astype(float).astype(int)): 
+    #     plt.text(a+1, b+1, str(b))
+    
+    # for aa,bb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,3].astype(float).astype(int)): 
+    #     plt.text(aa + 1, bb+1, str(bb))
+
+    # for aaa,bbb in zip(sorted_data[:,0].astype(float).astype(int), sorted_data[:,4].astype(float).astype(int)): 
+    #     plt.text(aaa+1, bbb+1, str(bbb))
+    axes_b.set_ylabel('Mean Pixel Intensity')
+    axes_b.set_xlabel('Cyanide Concentration (PPM)')
+    axes_b.set_title("Blue-Channel")
+    axes_b.set_xlim(-20, 120)
+    axes_b.set_ylim(0, 270)
+    axes_b.legend()
+    # plt.show()
+    fig_b.savefig(data_path+'/BPLOT1.png')
+    print("Saved Plot")
