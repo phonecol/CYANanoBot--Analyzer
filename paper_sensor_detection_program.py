@@ -76,7 +76,7 @@ if not os.path.exists(ROI2_PATH):
 
 
 #initialize the list of images, and its filenames
-image_no =  ["0000","000","01","02","03","04","05","06","07","08","09"]
+image_no =  ["0000","000","00","01","02","03","04","05","06","07","08","09"]
 ##########################################################################################################################
 print(image_no)
 image_nos = image_no + list(map(str, range(88 + 1)))
@@ -154,7 +154,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
 
         #create mask for each paper sensor
         for co, i in enumerate(circles, start=1):
-            cv2.circle(mask,(int(i[0]),int(i[1])),int(i[2]),(255,255,255),-1)         # draw the outer circle
+            cv2.circle(mask,(int(i[0]),int(i[1])),65,(255,255,255),-1)         # draw the outer circle
 
         masked =  cv2.bitwise_and(cimg,cimg, mask=mask)         #add the mask and the image
 

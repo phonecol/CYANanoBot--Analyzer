@@ -9,8 +9,9 @@ import statsmodels.api as sm
 from matplotlib import pyplot as plt
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import r2_score
+import pandas as pd
 ### Function for simple linear regression
-def linear_regression(x,y,filename_path):
+def linear_regression(x,y,feature,filename_path):
 
     # x_train, x_test,y_train,y_test = train_test_split(x,y,test_size =0.2)
     x_train = x
@@ -35,12 +36,18 @@ def linear_regression(x,y,filename_path):
 
     ##predict response 
     y_pred = model.predict(x_test)
-
+    
+    y_pred = pd.Series(y_pred, name='Prediction')
+    
     r2 = r2_score(y_test, y_pred)
     print("R2", r2)
-    print('predicted response:', y_pred, sep='\n')
-    print('actual response:', y_test, sep='\n')
+
+    #calculate prediction - actual
     print(y_pred-y_test)
+    prediction_error =abs( y_test - y_pred)
+    combined = pd.concat([y_pred, y_test, prediction_error], axis=1)
+    combined.columns =['Predicted', 'Actual', 'Prediction Error']
+    print(combined)
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred, squared=False)
     
@@ -60,29 +67,31 @@ def linear_regression(x,y,filename_path):
     str_r2 = "R^2 = " + str(r_sq)
     str_mse = "RMSE = " +str(mse)
     plt.text(0, 120, str_r2)
-    
+    plt.title("{} Channel" .format(feature))
     plt.text(0, 110, str_mse)
     plt.ylim(-10, 130)
     plt.xlim(0, 270)
-
+    plt.ylabel("Cyanide Concentration (PPM)")
+    plt.xlabel("Mean Pixel Intensity")
+    
     plt.savefig(filename_path+'/linear_finalized_model_'+ str(mse)+'_'+str(r_sq)+'.png')
     plt.show()
 
     return r_sq,mse
  
-# some time later...
- 
-# load the model from disk
+
+
 
 
 ### Function for multiple linear regression
-def multiple_linear_regression(x,y,filename_path):
+def multiple_linear_regression(x,y,feature,filename_path):
 
     # x_train, x_test,y_train,y_test = train_test_split(x,y,test_size =0.2)
     x_train = x
     x_test = x
     y_train =y
     y_test =y
+
     # #create a model and fit it 
     model = LinearRegression().fit(x_train,y_train)
 
@@ -95,9 +104,13 @@ def multiple_linear_regression(x,y,filename_path):
 
     #predict response 
     y_pred = model.predict(x_test)
-    print('predicted response:', y_pred, sep='\n')
-    print('actual response:', y_test, sep='\n')
-    print(y_pred-y_test)
+    y_pred = pd.Series(y_pred)
+    
+    #calculate prediction - actual
+    prediction_error =abs( y_test - y_pred)
+    combined = pd.concat([y_pred, y_test, prediction_error], axis=1)
+    combined.columns =['Predicted', 'Actual', 'Prediction Error']
+    print(combined)
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred, squared=False)
     r_sq= round(r_sq, 4)
@@ -113,7 +126,7 @@ def multiple_linear_regression(x,y,filename_path):
 
 ### Function for polynomial regression
 
-def polynomial_regression(x,y,filename_path):
+def polynomial_regression(x,y,feature, degree,filename_path):
 
     # x_train, x_test,y_train,y_test = train_test_split(x,y,test_size =0.2)
     #transform input data 
@@ -130,15 +143,10 @@ def polynomial_regression(x,y,filename_path):
     # x_test_ = transformer_test.transform(x_test)
     
     ###make pipeline
-    degree = 3
-    polyreg = make_pipeline(PolynomialFeatures(degree),LinearRegression(fit_intercept=False))
+    # degree = 3
+    polyreg = make_pipeline(PolynomialFeatures(degree, include_bias=False),LinearRegression(fit_intercept=False))
 
-    #or pde ingani 
-    #x_ = PolynomialFeatures(degree=2, include_bias=False).fit_transform(x)
-    # print(x_)
 
-    #create a model and fit it
-    # model = LinearRegression().fit(x_train_,y_train)
     model = polyreg.fit(x_train,y_test)
 
     #get results 
@@ -149,13 +157,16 @@ def polynomial_regression(x,y,filename_path):
     
     #predict response
     y_pred = model.predict(x_test)
-
+    y_pred = pd.Series(y_pred)
     r2 = r2_score(y_test, y_pred)
     print("R2", r2)
 
-    print('predicted response:', y_pred, sep='\n')
-    print('actual response:', y_test, sep='\n')
+    #calculate prediction - actual
     print(y_pred-y_test)
+    prediction_error =abs( y_test - y_pred)
+    combined = pd.concat([y_pred, y_test, prediction_error], axis=1)
+    combined.columns =['Predicted', 'Actual', 'Prediction Error']
+    print(combined)
 
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred, squared=False) #if squared = False: RMSE #### if true: MSE
@@ -179,10 +190,12 @@ def polynomial_regression(x,y,filename_path):
     str_r2 = "R^2 = " + str(r_sq)
     str_mse = "RMSE = " +str(mse)
     plt.text(0, 110, str_r2)
-    
+    plt.title("{} channel".format(feature))
     plt.text(0, 100, str_mse)
     plt.ylim(-10, 130)
     plt.xlim(0, 270)
+    plt.ylabel("Cyanide Concentration (PPM)")
+    plt.xlabel("Mean Pixel Intensity")
     plt.savefig(filename_path+'/polynomial_finalized_model_'+ str(mse)+'_'+str(r_sq)+'.png')
     plt.show()
     
@@ -190,34 +203,46 @@ def polynomial_regression(x,y,filename_path):
 
     return r_sq,mse
  
-def multiple_polynomial_regression(x,y,filename_path):
+def multiple_polynomial_regression(x,y,feature,degree,filename_path):
     # Step 2b: Transform input data
-    x_train, x_test,y_train,y_test = train_test_split(x,y,test_size =0.2)
+    # x_train, x_test,y_train,y_test = train_test_split(x,y,test_size =0.2)
+    x_train = x
+    x_test = x
+    y_train =y
+    y_test =y
     #transform input data 
-    transformer_train = PolynomialFeatures(degree=2, include_bias=False)
-    transformer_train.fit(x_train)
-    x_train_ = transformer_train.transform(x_train)
+    # transformer_train = PolynomialFeatures(degree=2, include_bias=False)
+    # transformer_train.fit(x_train)
+    # x_train_ = transformer_train.transform(x_train)
     
-    transformer_test = PolynomialFeatures(degree=2, include_bias=False)
-    transformer_test.fit(x_test)
-    x_test_ = transformer_test.transform(x_test)
+    # transformer_test = PolynomialFeatures(degree=2, include_bias=False)
+    # transformer_test.fit(x_test)
+    # x_test_ = transformer_test.transform(x_test)
 
     # Step 3: Create a model and fit it
-    model = LinearRegression().fit(x_train_, y_train)
+    # model = LinearRegression().fit(x_train_, y_train)
 
+
+    polyreg = make_pipeline(PolynomialFeatures(degree, include_bias= False),LinearRegression(fit_intercept=False))
+    model = polyreg.fit(x_train,y_test)
     # Step 4: Get results
-    r_sq = model.score(x_test_, y_test)
-    intercept, coefficients = model.intercept_, model.coef_
+    r_sq = model.score(x_test, y_test)
+    print('intercept:', model.named_steps.linearregression.intercept_)
+    print('coefficients:', model.named_steps.linearregression.coef_)
     print('coefficient of determination:', r_sq)
-    print('intercept:', intercept)
-    print('coefficients:', coefficients, sep='\n')
+
 
     # Step 5: Predict
-    y_pred = model.predict(x_test_)
-    
-    print('predicted response:', y_pred, sep='\n')
-    print('actual response:', y_test, sep='\n')
-    print(y_pred-y_test)
+    y_pred = model.predict(x_test)
+    y_pred = pd.Series(y_pred)
+
+    #calculate prediction - actual
+    prediction_error =abs( y_test - y_pred)
+    combined = pd.concat([y_pred, y_test, prediction_error], axis=1)
+    combined.columns =['Predicted', 'Actual', 'Prediction Error']
+    print(combined)
+
+
     #calculate mean squared error 
     mse = mean_squared_error(y_test, y_pred, squared=False)
     print("Root Mean Squared Error: ",mse)
@@ -228,7 +253,7 @@ def multiple_polynomial_regression(x,y,filename_path):
     
     filename = filename_path+'\\multiple_polynomial_finalized_model_'+ str(mse)+'_'+str(r_sq)+'.sav'
     pickle.dump(model, open(filename, 'wb'))
-
+   
 
     return r_sq,mse
     

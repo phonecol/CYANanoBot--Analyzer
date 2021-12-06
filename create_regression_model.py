@@ -1,3 +1,4 @@
+from math import degrees
 from matplotlib import colors
 from dominantColors import DominantColors
 import cv2
@@ -25,12 +26,15 @@ ap.add_argument("-fr", "--feature",required=False,
     help="features")
 ap.add_argument("-rm", "--regression_model",required=False,
     help="regression model")
+ap.add_argument("-dr", "--degree",required=False, default=3, type= int,
+    help="degree of the polynomial regression")
+
 args = vars(ap.parse_args())
 print(args)
 
 regression_model = args['regression_model']
 feature = args['feature']
-
+degree = args['degree']
 
 
 FILENAME_DIR = args['paper_sensor']
@@ -55,7 +59,11 @@ COLOR_DATA_DIR = "ColorData"
 COLOR_DATA_PATH = os.path.join(FILENAME_PATH, COLOR_DATA_DIR)
 
 data_dir = os.path.join(COLOR_DATA_PATH, str(images_id_no))
+MODEL_DIR = "MODELS"
+MODEL_PATH = os.path.join(data_dir, MODEL_DIR)
 
+if not os.path.exists(MODEL_PATH):
+    os.mkdir(MODEL_PATH)
 print(data_dir)
 
 files = os.listdir(data_dir)
@@ -75,6 +83,8 @@ csv_path = os.path.join(data_dir,csv[-1])
 df = pd.read_csv(csv_path)
 print(df.head())
 
+
+###Group the 3 paper sensors and find the mean between them
 data = df.groupby(['# Cyanide Concentration']).mean()
 print(data.head())
 csv_path2 = os.path.join(data_dir,'averaged.csv')
@@ -96,25 +106,27 @@ target = '# Cyanide Concentration'
 X = df2[features]
 y = df2[target]
 
+# X = df[features]
+# y = df[target]
 
 # print(X)
 # print(y)
 if regression_model == "Linear_Regression":
     print("\LINEAR REGRESSION")
-    r_sq, mse = linear_regression(X,y,data_dir)
+    r_sq, mse = linear_regression(X,y,feature, MODEL_PATH)
     R_2.append(r_sq)
     MSE.append(mse)
 
 
 elif regression_model == "Multiple_Linear_Regression":
     print("\MULTIPLE LINEAR REGRESSION")
-    r_sq, mse = multiple_linear_regression(X,y,data_dir)
+    r_sq, mse = multiple_linear_regression(X,y,feature,MODEL_PATH)
     R_2.append(r_sq)
     MSE.append(mse)
 
 elif regression_model == "Multiple_Polynomial_Regression":
     print("\MULTIPLE POLYNOMIAL REGRESSION")
-    r_sq, mse = multiple_polynomial_regression(X,y,data_dir)
+    r_sq, mse = multiple_polynomial_regression(X,y,feature,degree,MODEL_PATH)
     R_2.append(r_sq)
     MSE.append(mse)
 
@@ -122,14 +134,7 @@ elif regression_model == "Multiple_Polynomial_Regression":
 
 elif regression_model == "Polynomial_Regression":
     print("\POLYNOMIAL REGRESSION")
-    r_sq, mse = polynomial_regression(X,y,data_dir)
+    r_sq, mse = polynomial_regression(X,y,feature,degree ,MODEL_PATH)
     R_2.append(r_sq)
     MSE.append(mse)
 
-# data = df.groupby(['# Cyanide Concentration']).mean()
-# print(data.head())
-# csv_path2 = os.path.join(data_dir,'averaged.csv')
-# data.to_csv(csv_path2,index=True)
-# print('Okay')
-# df2 = pd.read_csv(csv_path2)
-# print(df2.head)
