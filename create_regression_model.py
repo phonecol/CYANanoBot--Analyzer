@@ -41,30 +41,31 @@ FILENAME_DIR = args['paper_sensor']
 images_id_no = args['images_id']
 # ROI2_DIR= args['ROI2_folder']
 # fnamee =  ROI2_DIR
-DATA_DIR = "DATA"
 
+### LOCATE and INITIALIZE DIRECTORIES 
+DATA_DIR = "DATA"
 CD = os.getcwd()
 print(CD)
-
 backCD =os.path.normpath(os.getcwd() + os.sep + os.pardir)
 print(backCD)
-
 DATA_PATH = os.path.join(backCD,DATA_DIR)
 print(DATA_PATH)
-
 FILENAME_PATH = os.path.join(DATA_PATH,FILENAME_DIR)
 print(FILENAME_DIR)
-
 COLOR_DATA_DIR = "ColorData"
 COLOR_DATA_PATH = os.path.join(FILENAME_PATH, COLOR_DATA_DIR)
-
 data_dir = os.path.join(COLOR_DATA_PATH, str(images_id_no))
 MODEL_DIR = "MODELS"
 MODEL_PATH = os.path.join(data_dir, MODEL_DIR)
 
+### CREATE DIRECTORY for MODELS
 if not os.path.exists(MODEL_PATH):
     os.mkdir(MODEL_PATH)
 print(data_dir)
+
+
+
+
 
 files = os.listdir(data_dir)
 print(files)
@@ -85,13 +86,13 @@ print(df.head())
 
 
 ###Group the 3 paper sensors and find the mean between them
-data = df.groupby(['# Cyanide Concentration']).mean()
-print(data.head())
-csv_path2 = os.path.join(data_dir,'averaged.csv')
-data.to_csv(csv_path2,index=True)
-print('Okay')
-df2 = pd.read_csv(csv_path2)
-print(df2.head)
+# data = df.groupby(['# Cyanide Concentration']).mean()
+# print(data.head())
+# csv_path2 = os.path.join(data_dir,'averaged.csv')
+# data.to_csv(csv_path2,index=True)
+# print('Okay')
+# df2 = pd.read_csv(csv_path2)
+# print(df2.head)
 
 try:
     input("Press ENTER to start the image acquisition")
@@ -103,11 +104,11 @@ print(feature)
 print(features)
 target = '# Cyanide Concentration'
 
-X = df2[features]
-y = df2[target]
+# X = df2[features]
+# y = df2[target]
 
-# X = df[features]
-# y = df[target]
+X = df[features]
+y = df[target]
 
 # print(X)
 # print(y)

@@ -197,11 +197,11 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
 
         ###Will display the image, mask, and masked image, and the 2 ROI if show_image == "True" (string not bool)
         if show_image == "True":
-        # plt.imshow(masked)
+       
             fig = plt.figure(figsize=(10, 7))
             rows= 1
             columns = 3
-            #plt.show()
+          
 
             fig.add_subplot(rows, columns, 1)
             
@@ -244,7 +244,7 @@ def get_circles(images,image_number, ppm_values, NUM_ROWS=3, show_image = False)
             plt.axis('off')
             plt.title("Cropped Region of Interest 2")
             plt.show()
-            # #plt.show()
+            
         ##########################################################################################################################    
 
 def main():
@@ -265,7 +265,6 @@ def main():
                 subfolder_path = os.path.join(IMAGE_PATH,file, subfolder)
 
                 for image in os.listdir(subfolder_path):
-         
                     print('image_filename',image)
                     image_number, ppm_value,sec,seconds,second = image.split(',')
                     image_path = os.path.join(IMAGE_PATH,file, subfolder, image)
@@ -276,10 +275,10 @@ def main():
                         ppm_values.append(ppm_value)
                         print(image_number)
                         print(image)
-                        # print("diri2")
-                # print(imagesss)
+
+
                 
-            # subfolders.append(subfolder)
+
 
         print('filenames',image_paths)
         print('ppm_values',ppm_values)
